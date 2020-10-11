@@ -1,7 +1,3 @@
-/*otro comentario*/
-
-
-
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: escuelita_pancho_27_08_2020
@@ -1723,17 +1719,27 @@ ALTER TABLE `maestro`
 
 INSERT INTO `maestro_curso` (`id_maestro_curso`, `id_maestro`, `id_curso`, `id_grado`, `id_aula`, `descripcion`, `fecha_creacion`, `estado`) VALUES
 (1, 13, 2, 2, 5, 'FNlFuoNWMx', '2020-08-27', 'A'),
+(2, 1, 4, 2, 2, 'nKVUKWgeRA', '2020-08-22', 'A'),
 (3, 16, 5, 2, 1, 'aOtsZJugTB', '2020-08-21', 'A'),
+(4, 23, 5, 4, 2, 'JsqvzDRCnp', '2020-08-26', 'B');
 (5, 1, 4, 1, 3, 'FCZVUXGdTM', '2020-08-25', 'B'),
 (7, 25, 6, 3, 4, 'Gf SDwhQEl', '2020-08-24', 'B'),
 (8, 1, 6, 4, 1, 'dyoumVkkQt', '2020-08-22', 'A'),
 (9, 8, 6, 3, 3, 'rHSKvbYMnq', '2020-08-24', 'A'),
+(10, 20, 5, 4, 4, 'cUqxRryxCY', '2020-08-24', 'B'),
+(11, 20, 5, 4, 4, 'cUqxRryxCY', '2020-08-24', 'B'),
 (12, 15, 5, 2, 1, 'Unk LWI LC', '2020-08-27', 'B'),
 (13, 1, 4, 2, 2, 'nKVUKWgeRA', '2020-08-22', 'A'),
 (14, 17, 2, 2, 2, 'RSaYxEvjlQ', '2020-08-23', 'A'),
+(15, 7, 4, 3, 4, 'XiRkuJljJa', '2020-08-25', 'B'),
+(16, 11, 2, 3, 4, 'uSAuKxSVZx', '2020-08-23', 'B'),
+(17, 11, 2, 3, 4, 'uSAuKxSVZx', '2020-08-23', 'B'),
+(18, 3, 4, 3, 5, 'eiFaTUvOzW', '2020-08-23', 'A'),
 (19, 28, 1, 3, 3, 'b SyhEXAlS', '2020-08-27', 'A'),
+(20, 29, 5, 4, 1, 'YOwseNfNdL', '2020-08-25', 'B'),
 (21, 17, 4, 3, 4, 'tSxtyrTGqU', '2020-08-23', 'A'),
 (22, 11, 6, 4, 4, 'dKQgJKvxgb', '2020-08-24', 'B'),
+(23, 29, 3, 1, 1, 'Fx XJFbkON', '2020-08-23', 'A'),
 (27, 7, 4, 3, 4, 'XiRkuJljJa', '2020-08-25', 'B'),
 (28, 27, 3, 3, 4, 'OxXPgOGHIV', '2020-08-24', 'A'),
 (29, 29, 5, 4, 1, 'YOwseNfNdL', '2020-08-25', 'B'),
@@ -1741,6 +1747,7 @@ INSERT INTO `maestro_curso` (`id_maestro_curso`, `id_maestro`, `id_curso`, `id_g
 (31, 20, 5, 4, 4, 'cUqxRryxCY', '2020-08-24', 'B'),
 (32, 11, 2, 3, 4, 'uSAuKxSVZx', '2020-08-23', 'B'),
 (33, 29, 2, 1, 3, 'cDIzHJWPGC', '2020-08-25', 'B'),
+(34, 3, 4, 3, 5, 'eiFaTUvOzW', '2020-08-23', 'A'),
 (35, 6, 1, 2, 1, 'ZTjOuKOvXJ', '2020-08-23', 'B'),
 (36, 3, 4, 3, 5, 'eiFaTUvOzW', '2020-08-23', 'A'),
 (37, 5, 2, 4, 1, 'GIfTaEQ Xf', '2020-08-25', 'A'),
@@ -1748,10 +1755,14 @@ INSERT INTO `maestro_curso` (`id_maestro_curso`, `id_maestro`, `id_curso`, `id_g
 (39, 20, 1, 4, 2, 'CTalPlpDjU', '2020-08-21', 'B'),
 (40, 23, 4, 3, 4, 'MiFzZJWCJp', '2020-08-26', 'A'),
 (41, 15, 1, 2, 1, 'SeQxJprGHE', '2020-08-23', 'A'),
+(42, 3, 4, 3, 5, 'eiFaTUvOzW', '2020-08-23', 'A'),
 (43, 19, 1, 4, 2, 'GlIBJbGtaL', '2020-08-24', 'B'),
+(44, 13, 2, 2, 5, 'FNlFuoNWMx', '2020-08-27', 'A'),
 (45, 27, 4, 2, 2, 'xOABptNvtc', '2020-08-26', 'A'),
 (46, 9, 5, 4, 1, 'zDPY ekoUf', '2020-08-23', 'B'),
 (47, 28, 2, 3, 4, 'hNODXlOjsf', '2020-08-26', 'A'),
+(48, 27, 4, 2, 2, 'xOABptNvtc', '2020-08-26', 'A'),
+(49, 13, 2, 2, 5, 'FNlFuoNWMx', '2020-08-27', 'A'),
 (50, 3, 3, 3, 1, 'OHbGZMJnjk', '2020-08-24', 'A'),
 (51, 23, 5, 4, 2, 'JsqvzDRCnp', '2020-08-26', 'B');
 
