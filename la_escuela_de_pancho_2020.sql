@@ -182,7 +182,7 @@
     `fecha_nacimiento` date NOT NULL COMMENT 'cuando nacio',
     `genero` enum('A','B') NOT NULL COMMENT 'orientacion sexual del ser',
     `nacionalidad` varchar(100) NOT NULL COMMENT 'de donde es',
-    `estatura` int(11) DEFAULT NULL COMMENT 'medicion el metros y centimetros',
+    `estatura` decimal(11, 2) DEFAULT NULL COMMENT 'medicion el metros y centimetros',
     `peso` int(11) DEFAULT NULL COMMENT 'medicion en libras y gramos',
     `religion` varchar(45) DEFAULT NULL COMMENT 'que profesa',
     `fecha_ingreso` date DEFAULT NULL COMMENT 'cuando ingreso ',
@@ -1145,7 +1145,18 @@
   (1, 'Prekinder1', 'A'),
   (2, 'Prekinder2', 'A'),
   (3, 'Kinder', 'A'),
-  (4, 'Preparatoria', 'A');
+  (4, 'Preparatoria', 'A'),
+  (5, 'Primero Primaria', 'A'),
+  (6, 'Segundo Primaria', 'A'),
+  (7, 'Tercero Primaria', 'A'),
+  (8, 'Cuarto Primaria', 'A'),
+  (9, 'Quinto Primaria', 'A'),
+  (10, 'Sexto Primaria', 'A'),
+  (11, 'Primero Básico', 'A'),
+  (12, 'Segundo Básico', 'A'),
+  (13, 'Tercero Básico', 'A'),
+  (14, 'Cuarto Bachillerato', 'A'),
+  (15, 'Quinto Bachillerato', 'A');
 
   --
   -- Indexes for dumped tables
@@ -2360,7 +2371,7 @@
   /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
   /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
   /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
+/*
   INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`alergias`,`celular_emergencia`,`padre_emergencia`,`fecha_nacimiento`) VALUES (1,'New York','B','Mauritius',1.53,54.18,'hindu','2020/1/28','b-','-','717-761-1754','Felix Greer','2014/3/18');
   INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`alergias`,`celular_emergencia`,`padre_emergencia`,`fecha_nacimiento`) VALUES (2,'Rhode Island','B','Tokelau',1.91,50.84,'budista','2020/1/8','o-','frio','195-836-5786','Darryl Pace','2014/10/3');
   INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`alergias`,`celular_emergencia`,`padre_emergencia`,`fecha_nacimiento`) VALUES (3,'Oklahoma','B','Haiti',1.54,57.77,'jesuita','2020/1/30','b+','-','681-014-2409','Walter Mitchell','2015/4/29');
@@ -2861,6 +2872,38 @@
   INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`alergias`,`celular_emergencia`,`padre_emergencia`,`fecha_nacimiento`) VALUES (498,'Utah','A','Andorra',1.58,64.13,'cristiano','2020/1/30','a+','-','032-483-1358','Beatrice Petty','2014/9/7');
   INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`alergias`,`celular_emergencia`,`padre_emergencia`,`fecha_nacimiento`) VALUES (499,'Montana','A','Mali',1.58,51.67,'catolico','2020/1/23','b+','-','953-937-1042','Jacob Fowler','2014/6/10');
   INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`alergias`,`celular_emergencia`,`padre_emergencia`,`fecha_nacimiento`) VALUES (500,'Oklahoma','A','Slovenia',1.87,84.07,'jesuita','2020/1/1','o-','atun','548-212-7401','Kevin Mcclure','2015/1/12');
+*/
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (1,'Ciudad de Guatemala','23/04/2017','F','Guatemalteco(a)',0.75,99.34,'Ninguna','9/08/2020','AB','203-014-6825','485-310-6584','Látex');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (2,'Ciudad de Guatemala','8/01/2017','F','Guatemalteco(a)',0.91,12.70,'Ninguna','5/01/2020','O+','820-434-5086','897-604-1985','Alergias a medicamentos');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (3,'Ciudad de Guatemala','16/02/2017','F','Guatemalteco(a)',0.72,11.87,'Católico','25/06/2020','A+','784-734-7407','772-783-2159','Látex');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (4,'Ciudad de Guatemala','3/07/2017','M','Guatemalteco(a)',0.99,22.18,'Mormón','19/09/2020','-','992-795-1405','385-021-5684','Látex');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (5,'Ciudad de Guatemala','8/12/2017','M','Guatemalteco(a)',0.90,45.84,'Católico','13/05/2020','O+','520-373-3079','801-908-5961','Moho');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (6,'Ciudad de Guatemala','25/11/2017','F','Guatemalteco(a)',0.93,51.20,'Ninguna','14/08/2020','A+','452-948-5470','360-005-0134','Ácaros de polvo');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (7,'Ciudad de Guatemala','19/04/2017','M','Guatemalteco(a)',0.87,70.51,'Católico','5/02/2020','O+','698-480-1709','894-125-3632','Animales');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (8,'Ciudad de Guatemala','7/10/2017','M','Guatemalteco(a)',1.00,41.30,'Ninguna','14/04/2020','O-','428-232-0950','091-213-5327','Alergias alimentarias');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (9,'Ciudad de Guatemala','20/02/2017','F','Guatemalteco(a)',0.73,82.57,'Ninguna','11/07/2020','O-','334-232-0466','152-248-9945','Alergias a medicamentos');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (10,'Ciudad de Guatemala','21/06/2017','M','Guatemalteco(a)',0.85,55.89,'Ninguna','15/04/2020','O-','610-249-6605','648-340-7570','Látex');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (11,'Ciudad de Guatemala','7/07/2017','F','Guatemalteco(a)',0.76,73.69,'Evangélico','28/06/2020','-','704-331-8294','996-129-7042','Perfumes');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (12,'Ciudad de Guatemala','19/09/2017','M','Guatemalteco(a)',0.93,72.32,'Evangélico','4/03/2020','AB','437-184-3850','575-704-7310','Alergias a medicamentos');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (13,'Ciudad de Guatemala','22/04/2017','F','Guatemalteco(a)',0.91,4.36,'Ninguna','28/07/2020','O+','848-907-9471','022-747-7101','Alergias a medicamentos');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (14,'Ciudad de Guatemala','5/06/2017','F','Guatemalteco(a)',0.83,63.60,'Católico','1/08/2020','A-','609-508-9827','840-917-8464','Animales');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (15,'Ciudad de Guatemala','20/03/2017','F','Guatemalteco(a)',0.76,55.53,'Evangélico','5/03/2020','-','633-030-8846','418-168-5697','Alergias a medicamentos');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (16,'Ciudad de Guatemala','22/06/2017','M','Guatemalteco(a)',0.91,96.71,'Ninguna','1/04/2020','-','410-344-4832','779-380-6810','Alergias alimentarias');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (17,'Ciudad de Guatemala','15/10/2017','F','Guatemalteco(a)',0.97,1.91,'Mormón','29/09/2020','A+','041-995-5082','427-428-0215','Animales');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (18,'Ciudad de Guatemala','23/05/2017','F','Guatemalteco(a)',0.96,20.60,'Mormón','25/06/2020','AB','680-365-2982','233-042-2104','Ácaros de polvo');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (19,'Ciudad de Guatemala','29/12/2017','F','Guatemalteco(a)',0.77,9.27,'Ninguna','21/03/2020','A+','758-176-9596','094-229-1281','Látex');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (20,'Ciudad de Guatemala','6/06/2017','F','Guatemalteco(a)',0.88,63.56,'Ninguna','29/07/2020','AB','173-162-9520','479-236-7299','Alergias alimentarias');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (21,'Ciudad de Guatemala','27/01/2017','F','Guatemalteco(a)',0.75,23.15,'Evangélico','30/09/2020','A-','135-143-3061','966-225-0442','-');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (22,'Ciudad de Guatemala','14/02/2017','F','Guatemalteco(a)',0.80,83.74,'Ninguna','15/06/2020','O+','579-661-9345','876-760-5868','Ácaros de polvo');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (23,'Ciudad de Guatemala','20/10/2017','F','Guatemalteco(a)',0.90,88.66,'Ninguna','29/02/2020','O-','529-656-8789','186-548-1156','-');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (24,'Ciudad de Guatemala','5/10/2017','M','Guatemalteco(a)',0.70,28.25,'Evangélico','2/01/2020','A+','407-744-7405','517-210-2492','Perfumes');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (25,'Ciudad de Guatemala','3/08/2017','F','Guatemalteco(a)',0.81,60.58,'Católico','27/07/2020','A-','805-884-6132','361-680-5997','Látex');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (26,'Ciudad de Guatemala','16/05/2017','F','Guatemalteco(a)',0.92,45.97,'Católico','5/04/2020','AB','702-906-3858','924-272-6522','Moho');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (27,'Ciudad de Guatemala','17/06/2017','F','Guatemalteco(a)',0.97,98.63,'Mormón','4/05/2020','AB','620-119-0985','773-833-1122','-');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (28,'Ciudad de Guatemala','14/04/2017','F','Guatemalteco(a)',0.85,2.58,'Ninguna','26/03/2020','AB','468-976-9412','668-762-0830','Alergias a medicamentos');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (29,'Ciudad de Guatemala','11/08/2017','F','Guatemalteco(a)',0.99,89.31,'Católico','22/08/2020','O-','047-694-9379','626-755-5447','Alergias alimentarias');
+INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (30,'Ciudad de Guatemala','26/07/2017','M','Guatemalteco(a)',0.92,34.09,'Católico','27/01/2020','A-','133-211-3302','632-761-9099','Látex');
+
 
   INSERT INTO papeleria_alumno (`id_alumno`) VALUES (1);
   INSERT INTO papeleria_alumno (`id_alumno`) VALUES (2);
