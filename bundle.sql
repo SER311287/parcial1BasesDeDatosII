@@ -1,66 +1,56 @@
-  -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
-  --
-  -- Host: 127.0.0.1    Database: escuelita_pancho_27_08_2020
-  -- ------------------------------------------------------
-  -- Server version	5.5.5-10.4.11-MariaDB
-
-  /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-  /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-  /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-  /*!40101 SET NAMES utf8 */;
-  /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-  /*!40103 SET TIME_ZONE='+00:00' */;
-  /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-  /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-  /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-  /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
-  --
-  -- Table structure for table `actividad`
-  --
-
-  DROP DATABASE IF EXISTS la_escuelita_de_pancho;
+    DROP DATABASE IF EXISTS la_escuelita_de_pancho;
   CREATE DATABASE la_escuelita_de_pancho;
 
   USE la_escuelita_de_pancho;
 
-  DROP TABLE IF EXISTS `actividad`;
-  /*!40101 SET @saved_cs_client     = @@character_set_client */;
-  /*!40101 SET character_set_client = utf8 */;
-  CREATE TABLE `actividad` (
-    `id_actividad` int(11) NOT NULL AUTO_INCREMENT COMMENT 'el codigo de la actividad',
-    `id_unidad` int(11) NOT NULL COMMENT 'la unidad que esta trabajando',
-    `id_asignacion` int(11) NOT NULL COMMENT 'llamamos la asignacion ya que esta definida por el curso y maestro',
-    `titulo_actividad` varchar(45) NOT NULL COMMENT 'el nombre que define la actividad',
-    `descripcion` varchar(45) NOT NULL COMMENT 'descripcion para definir la actividad ',
-    `fecha_creacion` date NOT NULL COMMENT 'fecha de creacion de la actividad',
-    `fecha_cierre` date NOT NULL COMMENT 'fecha cuando termine la entrega de la actividad',
-    `puntos_zona` int(11) NOT NULL COMMENT 'define los puntos acumulados para la zona',
-    `estado` enum('A','B') DEFAULT NULL COMMENT 'estado si esta activa o termino como baja',
-    PRIMARY KEY (`id_actividad`),
-    KEY `act_id_unidad_idx` (`id_unidad`),
-    KEY `act_asignacion_idx` (`id_asignacion`),
-    CONSTRAINT `act_asignacion` FOREIGN KEY (`id_asignacion`) REFERENCES `asignacion` (`id_asignacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT `act_id_unidad` FOREIGN KEY (`id_unidad`) REFERENCES `unidad` (`id_unidad`) ON DELETE NO ACTION ON UPDATE NO ACTION
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='define si es examen o tarea';
-  /*!40101 SET character_set_client = @saved_cs_client */;
+ 
 
-  --
-  -- Dumping data for table `actividad`
-  --
 
-  LOCK TABLES `actividad` WRITE;
-  /*!40000 ALTER TABLE `actividad` DISABLE KEYS */;
-  /*!40000 ALTER TABLE `actividad` ENABLE KEYS */;
+  DROP TABLE IF EXISTS `asignacion`;
+  CREATE TABLE `asignacion` (
+    `id_asignacion` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de identificacion de asignacion',
+    `id_alumno` int(11) NOT NULL COMMENT 'codigo del alumno asignado',
+    `id_maestro_curso` int(11) NOT NULL COMMENT 'codigo que define el curso por maestro',
+    `estado` enum('A','B') NOT NULL COMMENT 'asignacion activa o inactiva',
+    PRIMARY KEY (`id_asignacion`),
+    KEY `asig_id_alumno_idx` (`id_alumno`),
+    KEY `asig_id_macu_idx` (`id_maestro_curso`),
+    CONSTRAINT `asig_id_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT `asig_id_macu` FOREIGN KEY (`id_maestro_curso`) REFERENCES `maestro_curso` (`id_maestro_curso`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='asignacion de alumnos a curso y maestros';
+
+  LOCK TABLES `asignacion` WRITE;
   UNLOCK TABLES;
 
-  --
-  -- Table structure for table `alumno`
-  --
 
-  DROP TABLE IF EXISTS `alumno`;
-  /*!40101 SET @saved_cs_client     = @@character_set_client */;
-  /*!40101 SET character_set_client = utf8 */;
+  DROP TABLE IF EXISTS `aula`;
+  CREATE TABLE `aula` (
+    `id_aula` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de identificacion para el aula',
+    `nombre_aula` varchar(150) NOT NULL COMMENT 'nombre del aula ',
+    `capacidad` int(11) DEFAULT NULL COMMENT 'numero de alumnos que puede contener dicha aula',
+    `usuario_creacion` varchar(45) DEFAULT NULL COMMENT 'usuario que crea',
+    `fecha_creacion` varchar(45) DEFAULT NULL COMMENT 'fecha en que se crea el aula',
+    `usuario_modifica` varchar(45) DEFAULT NULL COMMENT 'usuario que modifica ',
+    `fecha_modifica` varchar(45) DEFAULT NULL COMMENT 'fecha en que se le hacen cambios',
+    `estado` enum('A','B') DEFAULT NULL COMMENT 'Indica si esta de Alta o de Baja el aula\n',
+    PRIMARY KEY (`id_aula`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='define las aulas en disposicion y el numero maximo de alumnos que puede contener';
+
+  LOCK TABLES `aula` WRITE;
+  UNLOCK TABLES;
+
+  DROP TABLE IF EXISTS `grado`;
+  CREATE TABLE `grado` (
+    `id_grado` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo que identifica al grado',
+    `nombre_grado` varchar(45) NOT NULL COMMENT 'describe el nombre del grado',
+    `estado` enum('A','B') NOT NULL COMMENT 'Se evalua si esta activo o de baja los grados del colegio',
+    PRIMARY KEY (`id_grado`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Esta tabla contiene los grados del nivel primario';
+
+  LOCK TABLES `grado` WRITE;
+  UNLOCK TABLES;
+
+ DROP TABLE IF EXISTS `alumno`;
   CREATE TABLE `alumno` (
     `id_alumno` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de alumno',
     `nombre_alumno` varchar(45) NOT NULL COMMENT 'nombre completo del alumno',
@@ -75,108 +65,26 @@
     CONSTRAINT `id_grado` FOREIGN KEY (`id_grado`) REFERENCES `grado` (`id_grado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT `id_usuario` FOREIGN KEY (`id_alumno`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-  /*!40101 SET character_set_client = @saved_cs_client */;
-
-  --
-  -- Dumping data for table `alumno`
-  --
 
   LOCK TABLES `alumno` WRITE;
-  /*!40000 ALTER TABLE `alumno` DISABLE KEYS */;
-  /*!40000 ALTER TABLE `alumno` ENABLE KEYS */;
   UNLOCK TABLES;
+DROP TABLE IF EXISTS `curso`;
 
-  --
-  -- Table structure for table `asignacion`
-  --
-
-  DROP TABLE IF EXISTS `asignacion`;
-  /*!40101 SET @saved_cs_client     = @@character_set_client */;
-  /*!40101 SET character_set_client = utf8 */;
-  CREATE TABLE `asignacion` (
-    `id_asignacion` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de identificacion de asignacion',
-    `id_alumno` int(11) NOT NULL COMMENT 'codigo del alumno asignado',
-    `id_maestro_curso` int(11) NOT NULL COMMENT 'codigo que define el curso por maestro',
-    `estado` enum('A','B') NOT NULL COMMENT 'asignacion activa o inactiva',
-    PRIMARY KEY (`id_asignacion`),
-    KEY `asig_id_alumno_idx` (`id_alumno`),
-    KEY `asig_id_macu_idx` (`id_maestro_curso`),
-    CONSTRAINT `asig_id_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT `asig_id_macu` FOREIGN KEY (`id_maestro_curso`) REFERENCES `maestro_curso` (`id_maestro_curso`) ON DELETE NO ACTION ON UPDATE NO ACTION
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='asignacion de alumnos a curso y maestros';
-  /*!40101 SET character_set_client = @saved_cs_client */;
-
-  --
-  -- Dumping data for table `asignacion`
-  --
-
-  LOCK TABLES `asignacion` WRITE;
-  /*!40000 ALTER TABLE `asignacion` DISABLE KEYS */;
-  /*!40000 ALTER TABLE `asignacion` ENABLE KEYS */;
-  UNLOCK TABLES;
-
-  --
-  -- Table structure for table `aula`
-  --
-
-  DROP TABLE IF EXISTS `aula`;
-  /*!40101 SET @saved_cs_client     = @@character_set_client */;
-  /*!40101 SET character_set_client = utf8 */;
-  CREATE TABLE `aula` (
-    `id_aula` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de identificacion para el aula',
-    `nombre_aula` varchar(150) NOT NULL COMMENT 'nombre del aula ',
-    `capacidad` int(11) DEFAULT NULL COMMENT 'numero de alumnos que puede contener dicha aula',
-    `usuario_creacion` varchar(45) DEFAULT NULL COMMENT 'usuario que crea',
-    `fecha_creacion` varchar(45) DEFAULT NULL COMMENT 'fecha en que se crea el aula',
-    `usuario_modifica` varchar(45) DEFAULT NULL COMMENT 'usuario que modifica ',
-    `fecha_modifica` varchar(45) DEFAULT NULL COMMENT 'fecha en que se le hacen cambios',
-    `estado` enum('A','B') DEFAULT NULL COMMENT 'Indica si esta de Alta o de Baja el aula\n',
-    PRIMARY KEY (`id_aula`)
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='define las aulas en disposicion y el numero maximo de alumnos que puede contener';
-  /*!40101 SET character_set_client = @saved_cs_client */;
-
-  --
-  -- Dumping data for table `aula`
-  --
-
-  LOCK TABLES `aula` WRITE;
-  UNLOCK TABLES;
-
-  --
-  -- Table structure for table `curso`
-  --
-
-  DROP TABLE IF EXISTS `curso`;
-  /*!40101 SET @saved_cs_client     = @@character_set_client */;
-  /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `curso` (
     `id_curso` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de curso',
     `nombre_curso` varchar(150) NOT NULL COMMENT 'nombre de curso a impartir',
     `observacion` varchar(155) NOT NULL COMMENT 'algun comentario del curso',
     `estado` enum('A','B') NOT NULL COMMENT 'indica si esta de Alta o Baja ',
     `fecha_creacion` date NOT NULL COMMENT 'indicador de la fecha que se creo ',
-    `id_grado` int(11) NOT NULL COMMENT 'LLAVE QUE APUNTA A LA TABLA GRADO',
+    `id_grado` int(11) NOT NULL COMMENT 'llave que apunta al grado',
     PRIMARY KEY (`id_curso`),
-    CONSTRAINT `llave_grado_curso` FOREIGN KEY (`id_grado`) REFERENCES `grado`(`id_grado`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='tabla que contendra todos los cursos en general\n';
-  /*!40101 SET character_set_client = @saved_cs_client */;
-
-  --
-  -- Dumping data for table `curso`
-  --
 
   LOCK TABLES `curso` WRITE;
-  /*!40000 ALTER TABLE `curso` DISABLE KEYS */;
-  /*!40000 ALTER TABLE `curso` ENABLE KEYS */;
   UNLOCK TABLES;
 
-  --
-  -- Table structure for table `detalle_alumno`
-  --
 
   DROP TABLE IF EXISTS `detalle_alumno`;
-  /*!40101 SET @saved_cs_client     = @@character_set_client */;
-  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `detalle_alumno` (
     `id_detalle_alumno` int(11) NOT NULL AUTO_INCREMENT,
     `id_alumno` int(11) NOT NULL COMMENT 'codigo del alumno ',
@@ -197,48 +105,13 @@ CREATE TABLE `curso` (
     KEY `id_alumno_idx` (`id_alumno`),
     CONSTRAINT `id_alumno_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='detalle de datos para el alumno';
-  /*!40101 SET character_set_client = @saved_cs_client */;
-
-  --
-  -- Dumping data for table `detalle_alumno`
-  --
 
   LOCK TABLES `detalle_alumno` WRITE;
-  /*!40000 ALTER TABLE `detalle_alumno` DISABLE KEYS */;
-  /*!40000 ALTER TABLE `detalle_alumno` ENABLE KEYS */;
   UNLOCK TABLES;
 
-  --
-  -- Table structure for table `grado`
-  --
 
-  DROP TABLE IF EXISTS `grado`;
-  /*!40101 SET @saved_cs_client     = @@character_set_client */;
-  /*!40101 SET character_set_client = utf8 */;
-  CREATE TABLE `grado` (
-    `id_grado` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo que identifica al grado',
-    `nombre_grado` varchar(45) NOT NULL COMMENT 'describe el nombre del grado',
-    `estado` enum('A','B') NOT NULL COMMENT 'Se evalua si esta activo o de baja los grados del colegio',
-    PRIMARY KEY (`id_grado`)
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Esta tabla contiene los grados del nivel primario';
-  /*!40101 SET character_set_client = @saved_cs_client */;
-
-  --
-  -- Dumping data for table `grado`
-  --
-
-  LOCK TABLES `grado` WRITE;
-  /*!40000 ALTER TABLE `grado` DISABLE KEYS */;
-  /*!40000 ALTER TABLE `grado` ENABLE KEYS */;
-  UNLOCK TABLES;
-
-  --
-  -- Table structure for table `horario`
-  --
 
   DROP TABLE IF EXISTS `horario`;
-  /*!40101 SET @saved_cs_client     = @@character_set_client */;
-  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `horario` (
     `id_horario` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo del horario del dia',
     `descripcion` varchar(155) NOT NULL COMMENT 'descripcion para el horario',
@@ -251,48 +124,23 @@ CREATE TABLE `curso` (
     CONSTRAINT `ho_id_macu` FOREIGN KEY (`id_maestro_curso`) REFERENCES `maestro_curso` (`id_maestro_curso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT `ho_id_periodo_dia` FOREIGN KEY (`id_periodo_dia`) REFERENCES `periodo_dia` (`id_periodo_dia`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='asignacion de los cursos al dia de periodo';
-  /*!40101 SET character_set_client = @saved_cs_client */;
 
-  --
-  -- Dumping data for table `horario`
-  --
 
   LOCK TABLES `horario` WRITE;
-  /*!40000 ALTER TABLE `horario` DISABLE KEYS */;
-  /*!40000 ALTER TABLE `horario` ENABLE KEYS */;
   UNLOCK TABLES;
 
-  --
-  -- Table structure for table `identificacion`
-  --
-
   DROP TABLE IF EXISTS `identificacion`;
-  /*!40101 SET @saved_cs_client     = @@character_set_client */;
-  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `identificacion` (
     `id_identificacion` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de identificacion ',
     `nombre_identificacion` varchar(45) NOT NULL COMMENT 'nombre de la identificacion',
     `estado` enum('A','B') NOT NULL COMMENT 'Indica si esta de Alta o de Baja el aula\n',
     PRIMARY KEY (`id_identificacion`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='nos indica el tipo de documento que puede utizar ';
-  /*!40101 SET character_set_client = @saved_cs_client */;
-
-  --
-  -- Dumping data for table `identificacion`
-  --
 
   LOCK TABLES `identificacion` WRITE;
-  /*!40000 ALTER TABLE `identificacion` DISABLE KEYS */;
-  /*!40000 ALTER TABLE `identificacion` ENABLE KEYS */;
   UNLOCK TABLES;
 
-  --
-  -- Table structure for table `maestro`
-  --
-
   DROP TABLE IF EXISTS `maestro`;
-  /*!40101 SET @saved_cs_client     = @@character_set_client */;
-  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `maestro` (
     `id_maestro` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo que identifica al maestro',
     `id_identificacion` int(11) NOT NULL COMMENT 'fk a la tabla de identificacion ',
@@ -305,24 +153,11 @@ CREATE TABLE `curso` (
     KEY `id_identificacion_idx` (`id_identificacion`),
     CONSTRAINT `id_identificacion` FOREIGN KEY (`id_identificacion`) REFERENCES `identificacion` (`id_identificacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='tabla con los datos importantes del maestro';
-  /*!40101 SET character_set_client = @saved_cs_client */;
-
-  --
-  -- Dumping data for table `maestro`
-  --
 
   LOCK TABLES `maestro` WRITE;
-  /*!40000 ALTER TABLE `maestro` DISABLE KEYS */;
-  /*!40000 ALTER TABLE `maestro` ENABLE KEYS */;
   UNLOCK TABLES;
 
-  --
-  -- Table structure for table `maestro_curso`
-  --
-
   DROP TABLE IF EXISTS `maestro_curso`;
-  /*!40101 SET @saved_cs_client     = @@character_set_client */;
-  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `maestro_curso` (
     `id_maestro_curso` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de asignacion',
     `id_maestro` int(11) NOT NULL COMMENT 'id maestro para hacer match',
@@ -341,24 +176,12 @@ CREATE TABLE `curso` (
     CONSTRAINT `macu_id_grado` FOREIGN KEY (`id_grado`) REFERENCES `grado` (`id_grado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT `macu_id_maestro` FOREIGN KEY (`id_maestro_curso`) REFERENCES `maestro` (`id_maestro`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='match entre maestro y curso ';
-  /*!40101 SET character_set_client = @saved_cs_client */;
-
-  --
-  -- Dumping data for table `maestro_curso`
-  --
 
   LOCK TABLES `maestro_curso` WRITE;
-  /*!40000 ALTER TABLE `maestro_curso` DISABLE KEYS */;
-  /*!40000 ALTER TABLE `maestro_curso` ENABLE KEYS */;
   UNLOCK TABLES;
 
-  --
-  -- Table structure for table `papeleria_alumno`
-  --
 
   DROP TABLE IF EXISTS `papeleria_alumno`;
-  /*!40101 SET @saved_cs_client     = @@character_set_client */;
-  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `papeleria_alumno` (
     `id_papeleria_alumno` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de papeleria de alumno\n',
     `id_alumno` int(11) NOT NULL COMMENT 'codigo del alumno ',
@@ -375,24 +198,13 @@ CREATE TABLE `curso` (
     KEY `id_alumno_idx` (`id_alumno`),
     CONSTRAINT `id_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='contiene datos de certificaciones del alumno';
-  /*!40101 SET character_set_client = @saved_cs_client */;
 
-  --
-  -- Dumping data for table `papeleria_alumno`
-  --
 
   LOCK TABLES `papeleria_alumno` WRITE;
-  /*!40000 ALTER TABLE `papeleria_alumno` DISABLE KEYS */;
-  /*!40000 ALTER TABLE `papeleria_alumno` ENABLE KEYS */;
   UNLOCK TABLES;
 
-  --
-  -- Table structure for table `periodo_dia`
-  --
 
   DROP TABLE IF EXISTS `periodo_dia`;
-  /*!40101 SET @saved_cs_client     = @@character_set_client */;
-  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `periodo_dia` (
     `id_periodo_dia` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo para definir el periodo en el que esta',
     `nombre_periodo` varchar(45) NOT NULL COMMENT 'descripcion o titulo para el periodo',
@@ -402,24 +214,13 @@ CREATE TABLE `curso` (
     `estado` enum('A','B') NOT NULL,
     PRIMARY KEY (`id_periodo_dia`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='grupo por dias de horario';
-  /*!40101 SET character_set_client = @saved_cs_client */;
 
-  --
-  -- Dumping data for table `periodo_dia`
-  --
 
   LOCK TABLES `periodo_dia` WRITE;
-  /*!40000 ALTER TABLE `periodo_dia` DISABLE KEYS */;
-  /*!40000 ALTER TABLE `periodo_dia` ENABLE KEYS */;
   UNLOCK TABLES;
 
-  --
-  -- Table structure for table `respuesta_actividad`
-  --
 
   DROP TABLE IF EXISTS `respuesta_actividad`;
-  /*!40101 SET @saved_cs_client     = @@character_set_client */;
-  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `respuesta_actividad` (
     `id_respuesta_actividad` int(11) NOT NULL AUTO_INCREMENT,
     `id_actividad` int(11) NOT NULL,
@@ -436,20 +237,9 @@ CREATE TABLE `curso` (
     CONSTRAINT `reac_id_actividad` FOREIGN KEY (`id_actividad`) REFERENCES `actividad` (`id_actividad`) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT `reac_id_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='respuesta a la actividad creada';
-  /*!40101 SET character_set_client = @saved_cs_client */;
-
-  --
-  -- Dumping data for table `respuesta_actividad`
-  --
-
+  
   LOCK TABLES `respuesta_actividad` WRITE;
-  /*!40000 ALTER TABLE `respuesta_actividad` DISABLE KEYS */;
-  /*!40000 ALTER TABLE `respuesta_actividad` ENABLE KEYS */;
   UNLOCK TABLES;
-
-  --
-  -- Table structure for table `unidad`
-  --
 
   DROP TABLE IF EXISTS `unidad`;
   /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -462,24 +252,33 @@ CREATE TABLE `curso` (
     `estado` enum('A','I') DEFAULT NULL COMMENT 'Unidad activa o inactiva',
     PRIMARY KEY (`id_unidad`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-  /*!40101 SET character_set_client = @saved_cs_client */;
-
-  --
-  -- Dumping data for table `unidad`
-  --
 
   LOCK TABLES `unidad` WRITE;
-  /*!40000 ALTER TABLE `unidad` DISABLE KEYS */;
-  /*!40000 ALTER TABLE `unidad` ENABLE KEYS */;
   UNLOCK TABLES;
 
-  --
-  -- Table structure for table `usuario`
-  --
+DROP TABLE IF EXISTS `actividad`;
+  CREATE TABLE `actividad` (
+    `id_actividad` int(11) NOT NULL AUTO_INCREMENT COMMENT 'el codigo de la actividad',
+    `id_unidad` int(11) NOT NULL COMMENT 'la unidad que esta trabajando',
+    `id_asignacion` int(11) NOT NULL COMMENT 'llamamos la asignacion ya que esta definida por el curso y maestro',
+    `titulo_actividad` varchar(45) NOT NULL COMMENT 'el nombre que define la actividad',
+    `descripcion` varchar(45) NOT NULL COMMENT 'descripcion para definir la actividad ',
+    `fecha_creacion` date NOT NULL COMMENT 'fecha de creacion de la actividad',
+    `fecha_cierre` date NOT NULL COMMENT 'fecha cuando termine la entrega de la actividad',
+    `puntos_zona` int(11) NOT NULL COMMENT 'define los puntos acumulados para la zona',
+    `estado` enum('A','B') DEFAULT NULL COMMENT 'estado si esta activa o termino como baja',
+    PRIMARY KEY (`id_actividad`),
+    KEY `act_id_unidad_idx` (`id_unidad`),
+    KEY `act_asignacion_idx` (`id_asignacion`),
+    CONSTRAINT `act_asignacion` FOREIGN KEY (`id_asignacion`) REFERENCES `asignacion` (`id_asignacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT `act_id_unidad` FOREIGN KEY (`id_unidad`) REFERENCES `unidad` (`id_unidad`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='define si es examen o tarea';
+
+  LOCK TABLES `actividad` WRITE;
+  UNLOCK TABLES;
+
 
   DROP TABLE IF EXISTS `usuario`;
-  /*!40101 SET @saved_cs_client     = @@character_set_client */;
-  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `usuario` (
     `id_usuario` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo del usuario',
     `usuario` varchar(45) NOT NULL COMMENT 'nombre del usuario',
@@ -492,35 +291,12 @@ CREATE TABLE `curso` (
     `status` enum('A','B') NOT NULL COMMENT 'Indica si esta de Alta o de Baja del usuario',
     PRIMARY KEY (`id_usuario`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='tabla que contiene a los usuarios que manejaran la informacion ';
-  /*!40101 SET character_set_client = @saved_cs_client */;
-
-  --
-  -- Dumping data for table `usuario`
-  --
 
   LOCK TABLES `usuario` WRITE;
-  /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-  /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
   UNLOCK TABLES;
 
-  --
-  -- Dumping events for database 'escuelita_pancho_27_08_2020'
-  --
 
-  --
-  -- Dumping routines for database 'escuelita_pancho_27_08_2020'
-  --
-  /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-  /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-  /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-  /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-  /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-  /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-  /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-  /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
-  -- Dump completed on 2020-08-28 13:18:30
 
   INSERT INTO `aula` ( `nombre_aula`, `capacidad`, `usuario_creacion`, `fecha_creacion`, `usuario_modifica`, `fecha_modifica`, `estado`) VALUES
   ('c-0001', 27, 'coordinador', '7/25/2020', 'maestro', '8/22/2020', 'A'),
@@ -529,46 +305,10 @@ CREATE TABLE `curso` (
   ('c-0004', 28, 'director', '7/24/2020', 'coordinador', '8/24/2020', 'A'),
   ('c-0005', 21, 'auxiliar', '7/23/2020', 'director', '8/24/2020', 'B');
 
-
-
-
-
-  /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-  /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-  /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-  -- phpMyAdmin SQL Dump
-  -- version 5.0.2
-  -- https://www.phpmyadmin.net/
-  --
-  -- Host: 127.0.0.1
-  -- Generation Time: Aug 29, 2020 at 02:54 PM
-  -- Server version: 10.4.11-MariaDB
-  -- PHP Version: 7.4.5
-
   SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
   START TRANSACTION;
   SET time_zone = "+00:00";
 
-
-  /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-  /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-  /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-  /*!40101 SET NAMES utf8mb4 */;
-
-  --
-  -- Database: `la_escuelita_de_pancho`
-  --
-
-  -- --------------------------------------------------------
-
-  --
-  -- Table structure for table `usuario`
-  --
-
-  --
-  -- Dumping data for table `usuario`
-  --
 
   INSERT INTO `usuario` (`id_usuario`, `usuario`, `password`, `fecha_ultimo_cambio_password`, `contador_intento_fallidos`, `codigo_restauracion`, `correo`, `celular`, `status`) VALUES
   (1, 'Lyle', 'WJzTv62Fjq', '2020-08-25', '9', 'U5290BZqTY', 'Abra@Phasellus.com', 623, 'B'),
