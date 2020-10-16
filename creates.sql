@@ -157,24 +157,12 @@
     `fecha_creacion` date NOT NULL COMMENT 'indicador de la fecha que se creo ',
     PRIMARY KEY (`id_curso`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='tabla que contendra todos los cursos en general\n';
-  /*!40101 SET character_set_client = @saved_cs_client */;
-
-  --
-  -- Dumping data for table `curso`
-  --
 
   LOCK TABLES `curso` WRITE;
-  /*!40000 ALTER TABLE `curso` DISABLE KEYS */;
-  /*!40000 ALTER TABLE `curso` ENABLE KEYS */;
   UNLOCK TABLES;
 
-  --
-  -- Table structure for table `detalle_alumno`
-  --
 
   DROP TABLE IF EXISTS `detalle_alumno`;
-  /*!40101 SET @saved_cs_client     = @@character_set_client */;
-  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `detalle_alumno` (
     `id_detalle_alumno` int(11) NOT NULL AUTO_INCREMENT,
     `id_alumno` int(11) NOT NULL COMMENT 'codigo del alumno ',
@@ -194,24 +182,12 @@
     KEY `id_alumno_idx` (`id_alumno`),
     CONSTRAINT `id_alumno_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='detalle de datos para el alumno';
-  /*!40101 SET character_set_client = @saved_cs_client */;
-
-  --
-  -- Dumping data for table `detalle_alumno`
-  --
 
   LOCK TABLES `detalle_alumno` WRITE;
-  /*!40000 ALTER TABLE `detalle_alumno` DISABLE KEYS */;
-  /*!40000 ALTER TABLE `detalle_alumno` ENABLE KEYS */;
   UNLOCK TABLES;
 
-  --
-  -- Table structure for table `grado`
-  --
 
   DROP TABLE IF EXISTS `grado`;
-  /*!40101 SET @saved_cs_client     = @@character_set_client */;
-  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `grado` (
     `id_grado` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo que identifica al grado',
     `nombre_grado` varchar(45) NOT NULL COMMENT 'describe el nombre del grado',
@@ -496,28 +472,17 @@
   --
 
   LOCK TABLES `usuario` WRITE;
-  /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-  /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
   UNLOCK TABLES;
 
-  --
-  -- Dumping events for database 'escuelita_pancho_27_08_2020'
-  --
 
-  --
-  -- Dumping routines for database 'escuelita_pancho_27_08_2020'
-  --
-  /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-  /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-  /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-  /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-  /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-  /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-  /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-  /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
-  -- Dump completed on 2020-08-28 13:18:30
+CREATE TABLE `grado_curso` (
+   `id_grado_curso` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id de la tabla', 
+   `id_grado` int(11) NOT NULL COMMENT 'id del grado' , 
+   `id_curso` int(11) NOT NULL COMMENT 'id del curso',
+   PRIMARY KEY (`id_grado_curso`),
+   CONSTRAINT `llave_grado_curso_1` FOREIGN KEY (`id_grado`) REFERENCES `grado` (`id_grado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+   CONSTRAINT `llave_grado_curso_2` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id_curso`) ON DELETE NO ACTION ON UPDATE NO ACTION
+   ) ENGINE = InnoDB;
 
   INSERT INTO `aula` ( `nombre_aula`, `capacidad`, `usuario_creacion`, `fecha_creacion`, `usuario_modifica`, `fecha_modifica`, `estado`) VALUES
   ('c-0001', 27, 'coordinador', '7/25/2020', 'maestro', '8/22/2020', 'A'),
@@ -526,46 +491,10 @@
   ('c-0004', 28, 'director', '7/24/2020', 'coordinador', '8/24/2020', 'A'),
   ('c-0005', 21, 'auxiliar', '7/23/2020', 'director', '8/24/2020', 'B');
 
-
-
-
-
-  /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-  /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-  /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-  -- phpMyAdmin SQL Dump
-  -- version 5.0.2
-  -- https://www.phpmyadmin.net/
-  --
-  -- Host: 127.0.0.1
-  -- Generation Time: Aug 29, 2020 at 02:54 PM
-  -- Server version: 10.4.11-MariaDB
-  -- PHP Version: 7.4.5
-
   SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
   START TRANSACTION;
   SET time_zone = "+00:00";
 
-
-  /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-  /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-  /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-  /*!40101 SET NAMES utf8mb4 */;
-
-  --
-  -- Database: `la_escuelita_de_pancho`
-  --
-
-  -- --------------------------------------------------------
-
-  --
-  -- Table structure for table `usuario`
-  --
-
-  --
-  -- Dumping data for table `usuario`
-  --
 
   INSERT INTO `usuario` (`id_usuario`, `usuario`, `password`, `fecha_ultimo_cambio_password`, `contador_intento_fallidos`, `codigo_restauracion`, `correo`, `celular`, `status`) VALUES
   (1, 'Lyle', 'WJzTv62Fjq', '2020-08-25', '9', 'U5290BZqTY', 'Abra@Phasellus.com', 623, 'B'),
@@ -2352,25 +2281,6 @@
   ('Charlotte Harrell', 0, '99890 South Bouvet Island St.', 461, 'Courtney@hymenaeos.net', '2020-08-25', 4),
   ('Keiko Hanson', 0, '51313 North Highland Park Way', 27, 'Tyrone@porttitor.org', '2020-08-22', 3);
 
-  --
-  -- Indexes for dumped tables
-  --
-
-  --
-  -- Indexes for table `alumno`
-  --
-
-  --
-  -- AUTO_INCREMENT for dumped tables
-  --
-
-  --
-  -- AUTO_INCREMENT for table `alumno`
-  --
-
-  /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-  /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-  /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (1,'Ciudad de Guatemala','2017/09/28','F','Guatemalteco(a)',0.91,89.18,'Mormón','2020/01/24','O-','359-105-1434','Garrett Cantu','-');
 INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (2,'Ciudad de Guatemala','2017/03/22','F','Guatemalteco(a)',0.86,25.51,'Católico','2020/03/5','O-','379-173-2160','Tallulah Edwards','Polen');
 INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (3,'Ciudad de Guatemala','2017/04/19','M','Guatemalteco(a)',0.72,95.53,'Católico','2020/09/25','AB','079-627-0882','Marshall Stewart','Perfumes');
