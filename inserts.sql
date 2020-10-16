@@ -1,5 +1,6 @@
 
 USE la_escuelita_de_pancho;
+
   INSERT INTO `aula` ( `nombre_aula`, `capacidad`, `usuario_creacion`, `fecha_creacion`, `usuario_modifica`, `fecha_modifica`, `estado`) VALUES
   ('c-0001', 27, 'coordinador', '7/25/2020', 'maestro', '8/22/2020', 'A'),
   ('c-0002', 26, 'coordinador', '7/25/2020', 'maestro', '8/24/2020', 'A'),
@@ -532,9 +533,6 @@ USE la_escuelita_de_pancho;
   --
 
 
-  /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-  /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-  /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
   INSERT INTO `identificacion` (`id_identificacion`, `nombre_identificacion`, `estado`) VALUES
   (1, 'DPI', 'A'),
@@ -565,9 +563,7 @@ USE la_escuelita_de_pancho;
   --
   ;
 
-  /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
   /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-  /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 
 
@@ -614,9 +610,7 @@ USE la_escuelita_de_pancho;
   --
 
 
-  /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
   /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-  /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 
   --
@@ -627,15 +621,146 @@ USE la_escuelita_de_pancho;
   -- AUTO_INCREMENT for table `curso`
 
 
-  /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
   /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-  /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 
 
 
   -- Dumping data for table `maestro`
   --
+
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (1,'Destrezas de Aprendizaje', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (2,'Comunicación y Lenguaje', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (3,'Conocimiento de su Mundo ', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (4,'Estimulación Artística', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (5,'Motricidad', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (6,'Destrezas de Aprendizaje', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (7,'Comunicación y Lenguaje', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (8,'Conocimiento de su Mundo ', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (9,'Estimulación Artística', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (10,'Educación Física', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (11,'Destrezas de Aprendizaje', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (12,'Comunicación y Lenguaje', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (13,'Conocimiento de su Mundo ', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (14,'Estimulación Artística', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (15,'Educación Física', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (16,'Destrezas de Aprendizaje', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (17,'Comunicación y Lenguaje', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (18,'Conocimiento de su Mundo ', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (19,'Estimulación Artística', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (20,'Educación Física', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (21,'Comunicación y Lenguaje L 1 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (22,'Comunicación y Lenguaje L 2 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (23,'Comunicación y Lenguaje L 3 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (24,'Matemáticas', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (25,'Medio Social y Natural', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (26,'Expresión Artística', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (27,'Educación Física', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (28,'Formación Ciudadana', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (29,'Comunicación y Lenguaje L 1 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (30,'Comunicación y Lenguaje L 2 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (31,'Comunicación y Lenguaje L 3 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (32,'Matemáticas', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (33,'Medio Social y Natural', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (34,'Expresión Artística', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (35,'Educación Física', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (36,'Formación Ciudadana', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (37,'Comunicación y Lenguaje L 1 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (38,'Comunicación y Lenguaje L 2 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (39,'Comunicación y Lenguaje L 3 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (40,'Matemáticas', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (41,'Medio Social y Natural', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (42,'Expresión Artística', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (43,'Educación Física', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (44,'Formación Ciudadana', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (45,'Comunicación y Lenguaje L 1 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (46,'Comunicación y Lenguaje L 2 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (47,'Comunicación y Lenguaje L 3 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (48,'Matemáticas', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (49,'Ciencias Naturales y Tecnología', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (50,'Ciencias Sociales', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (51,'Educación Física', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (52,'Formación Ciudadana', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (53,'Productividad y Desarrollo', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (54,'Comunicación y Lenguaje L 1 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (55,'Comunicación y Lenguaje L 2 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (56,'Comunicación y Lenguaje L 3 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (57,'Matemáticas', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (58,'Ciencias Naturales y Tecnología', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (59,'Ciencias Sociales', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (60,'Educación Física', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (61,'Formación Ciudadana', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (62,'Productividad y Desarrollo', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (63,'Comunicación y Lenguaje L 1 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (64,'Comunicación y Lenguaje L 2 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (65,'Comunicación y Lenguaje L 3 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (66,'Matemáticas', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (67,'Ciencias Naturales y Tecnología', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (68,'Ciencias Sociales', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (69,'Educación Física', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (70,'Formación Ciudadana', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (71,'Productividad y Desarrollo', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (72, 'Comunicación y Lenguaje Idioma Español', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (73, 'Comunicación y Lenguaje Idioma Extranjero', 'descripcion',	'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (74, 'Matemática', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (75, 'Ciencias Naturales', 'descripcion',	'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (76, 'Ciencias Sociales, Formación Ciudadana e Interculturalidad', 'descripcion',	'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (77, 'Cultura e Idiomas Maya, Garífuna o Xinca', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (78, 'Educación Artística', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (79, 'Educación Física', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (80, 'Emprendimiento para la Productividad', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (81, 'Tecnologías del Aprendizaje y la Comunicación', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (82, 'Matemáticas', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (83, 'Ciencias Naturales', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (84, 'Ciencias Sociales y Formación Ciudadana', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (85, 'Productividad y Desarrollo', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (86, 'Educación Física', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (87, 'L 1 Español', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (88, 'L 1 Idiomas Mayas', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (89, 'L 2 Idiomas Mayas', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (90, 'L 3 Inglés', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (91, 'Formación Musical', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (92, 'Artes Plásticas', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (93, 'Danza y Expresión Corporal', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (94, 'Teatro', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (95, 'Matemáticas', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (96, 'Ciencias Naturales', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (97, 'Ciencias Sociales y Formación Ciudadana', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (98, 'Productividad y Desarrollo', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (99, 'Educación Física', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (100, 'L 1 Español', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (101, 'L 1 Idiomas Mayas', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (102, 'L 2 Idiomas Mayas', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (103, 'L 3 Inglés', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (104, 'Formación Musical', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (105, 'Artes Plásticas', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (106, 'Danza y Expresión Corporal', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (107, 'Teatro', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (108, 'Lengua y Literatura', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (109, 'Comunicación y Lenguaje L 3 (Inglés Técnico)', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (110, 'Matemáticas', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (111, 'Contabilidad', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (112, 'Ciencias Sociales y Formación Ciudadana', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (113, 'Física 	Educación Física ', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (114, 'Expresión Artística', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (115, 'Filosofía', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (116, 'Computación Aplicada', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (117, 'Laboratorio I', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (118, 'Sistemas e Instalación de Software', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (119, 'Lengua y Literatura', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (120, 'Comunicación y Lenguaje L 3 (Inglés Técnico)', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (121, 'Tecnologías de la Información y la Comunicación', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (122, 'Matemáticas ', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (123, 'Estadística Descriptiva ', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (124, 'Ciencias Sociales y Formación Ciudadana', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (125, 'Química ', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (126, 'Biología', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (127, 'Ética Profesional y Relaciones Humanas', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (128, 'Producción de Contenidos Digitales', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (129, 'Laboratorio II', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (130, 'Reparación y Soporte Técnico', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (131, 'Seminario (Investigación-Acción)', 'descripcion', 'A');
+
 
   INSERT INTO `maestro` (`id_maestro`, `id_identificacion`, `codigo_identificacion`, `direccion`, `correo`, `celular`, `estado`) VALUES
   (1, 7, 'DC407888-B044-465A-97EB-59B4A4CC4F4C', '4293 North Bay City Ln.', 'Dolan@aliquet.edu', 756, 'A'),
@@ -1167,9 +1292,7 @@ USE la_escuelita_de_pancho;
   --
 
 
-  /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
   /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-  /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 
   INSERT INTO `maestro_curso` (`id_maestro_curso`, `id_maestro`, `id_curso`, `id_grado`, `id_aula`, `descripcion`, `fecha_creacion`, `estado`) VALUES
@@ -1248,9 +1371,7 @@ USE la_escuelita_de_pancho;
   --
 
 
-  /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
   /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-  /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
   INSERT INTO `unidad` (`id_unidad`, `nombre_unidad`, `fecha_inicio`, `fecha_fin`, `estado`) VALUES
   (1, 'uno', '2020-08-28', '2020-08-28', 'A'),
@@ -1278,9 +1399,7 @@ USE la_escuelita_de_pancho;
 
 
 
-  /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
   /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-  /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 
 
@@ -1791,6 +1910,8 @@ USE la_escuelita_de_pancho;
   ('Charlotte Harrell', 0, '99890 South Bouvet Island St.', 461, 'Courtney@hymenaeos.net', '2020-08-25', 4),
   ('Keiko Hanson', 0, '51313 North Highland Park Way', 27, 'Tyrone@porttitor.org', '2020-08-22', 3);
 
+
+
 INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (1,'Ciudad de Guatemala','2017/09/28','F','Guatemalteco(a)',0.91,89.18,'Mormón','2020/01/24','O-','359-105-1434','Garrett Cantu','-');
 INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (2,'Ciudad de Guatemala','2017/03/22','F','Guatemalteco(a)',0.86,25.51,'Católico','2020/03/5','O-','379-173-2160','Tallulah Edwards','Polen');
 INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (3,'Ciudad de Guatemala','2017/04/19','M','Guatemalteco(a)',0.72,95.53,'Católico','2020/09/25','AB','079-627-0882','Marshall Stewart','Perfumes');
@@ -2178,6 +2299,8 @@ INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`g
 INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (385,'Ciudad de Guatemala','2004/09/11','M','Guatemalteco(a)',1.26,117.06,'Católico','2020/03/19','O+','9385-444-8351','Sasha Wells','Ácaros de polvo');
 INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (386,'Ciudad de Guatemala','2004/02/24','F','Guatemalteco(a)',1.25,101.28,'Evangélico','2020/04/20','A-','845-809-9370','Dale Wall','Animales');
 INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (387,'Ciudad de Guatemala','2004/05/18','F','Guatemalteco(a)',1.26,108.54,'Mormón','2020/09/19','A+','167-194-8456','Kalia Hart','Ácaros de polvo');
+
+
 
 
 INSERT INTO papeleria_alumno (`id_alumno`) VALUES (1);
@@ -2571,148 +2694,5 @@ INSERT INTO papeleria_alumno (`id_alumno`) VALUES (388);
 INSERT INTO papeleria_alumno (`id_alumno`) VALUES (389);
 INSERT INTO papeleria_alumno (`id_alumno`) VALUES (390);
 
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (1,'Destrezas de Aprendizaje', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (2,'Comunicación y Lenguaje', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (3,'Conocimiento de su Mundo ', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (4,'Estimulación Artística', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (5,'Motricidad', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (6,'Destrezas de Aprendizaje', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (7,'Comunicación y Lenguaje', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (8,'Conocimiento de su Mundo ', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (9,'Estimulación Artística', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (10,'Educación Física', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (11,'Destrezas de Aprendizaje', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (12,'Comunicación y Lenguaje', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (13,'Conocimiento de su Mundo ', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (14,'Estimulación Artística', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (15,'Educación Física', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (16,'Destrezas de Aprendizaje', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (17,'Comunicación y Lenguaje', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (18,'Conocimiento de su Mundo ', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (19,'Estimulación Artística', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (20,'Educación Física', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (21,'Comunicación y Lenguaje L 1 ', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (22,'Comunicación y Lenguaje L 2 ', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (23,'Comunicación y Lenguaje L 3 ', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (24,'Matemáticas', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (25,'Medio Social y Natural', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (26,'Expresión Artística', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (27,'Educación Física', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (28,'Formación Ciudadana', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (29,'Comunicación y Lenguaje L 1 ', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (30,'Comunicación y Lenguaje L 2 ', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (31,'Comunicación y Lenguaje L 3 ', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (32,'Matemáticas', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (33,'Medio Social y Natural', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (34,'Expresión Artística', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (35,'Educación Física', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (36,'Formación Ciudadana', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (37,'Comunicación y Lenguaje L 1 ', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (38,'Comunicación y Lenguaje L 2 ', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (39,'Comunicación y Lenguaje L 3 ', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (40,'Matemáticas', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (41,'Medio Social y Natural', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (42,'Expresión Artística', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (43,'Educación Física', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (44,'Formación Ciudadana', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (45,'Comunicación y Lenguaje L 1 ', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (46,'Comunicación y Lenguaje L 2 ', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (47,'Comunicación y Lenguaje L 3 ', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (48,'Matemáticas', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (49,'Ciencias Naturales y Tecnología', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (50,'Ciencias Sociales', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (51,'Educación Física', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (52,'Formación Ciudadana', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (53,'Productividad y Desarrollo', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (54,'Comunicación y Lenguaje L 1 ', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (55,'Comunicación y Lenguaje L 2 ', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (56,'Comunicación y Lenguaje L 3 ', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (57,'Matemáticas', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (58,'Ciencias Naturales y Tecnología', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (59,'Ciencias Sociales', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (60,'Educación Física', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (61,'Formación Ciudadana', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (62,'Productividad y Desarrollo', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (63,'Comunicación y Lenguaje L 1 ', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (64,'Comunicación y Lenguaje L 2 ', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (65,'Comunicación y Lenguaje L 3 ', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (66,'Matemáticas', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (67,'Ciencias Naturales y Tecnología', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (68,'Ciencias Sociales', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (69,'Educación Física', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (70,'Formación Ciudadana', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (71,'Productividad y Desarrollo', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (72, 'Comunicación y Lenguaje Idioma Español', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (73, 'Comunicación y Lenguaje Idioma Extranjero', 'descripcion',	'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (74, 'Matemática', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (75, 'Ciencias Naturales', 'descripcion',	'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (76, 'Ciencias Sociales, Formación Ciudadana e Interculturalidad', 'descripcion',	'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (77, 'Cultura e Idiomas Maya, Garífuna o Xinca', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (78, 'Educación Artística', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (79, 'Educación Física', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (80, 'Emprendimiento para la Productividad', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (81, 'Tecnologías del Aprendizaje y la Comunicación', 'descripcion','A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (82, 'Matemáticas', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (83, 'Ciencias Naturales', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (84, 'Ciencias Sociales y Formación Ciudadana', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (85, 'Productividad y Desarrollo', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (86, 'Educación Física', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (87, 'L 1 Español', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (88, 'L 1 Idiomas Mayas', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (89, 'L 2 Idiomas Mayas', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (90, 'L 3 Inglés', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (91, 'Formación Musical', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (92, 'Artes Plásticas', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (93, 'Danza y Expresión Corporal', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (94, 'Teatro', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (95, 'Matemáticas', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (96, 'Ciencias Naturales', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (97, 'Ciencias Sociales y Formación Ciudadana', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (98, 'Productividad y Desarrollo', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (99, 'Educación Física', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (100, 'L 1 Español', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (101, 'L 1 Idiomas Mayas', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (102, 'L 2 Idiomas Mayas', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (103, 'L 3 Inglés', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (104, 'Formación Musical', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (105, 'Artes Plásticas', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (106, 'Danza y Expresión Corporal', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (107, 'Teatro', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (108, 'Lengua y Literatura', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (109, 'Comunicación y Lenguaje L 3 (Inglés Técnico)', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (110, 'Matemáticas', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (111, 'Contabilidad', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (112, 'Ciencias Sociales y Formación Ciudadana', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (113, 'Física 	Educación Física ', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (114, 'Expresión Artística', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (115, 'Filosofía', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (116, 'Computación Aplicada', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (117, 'Laboratorio I', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (118, 'Sistemas e Instalación de Software', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (119, 'Lengua y Literatura', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (120, 'Comunicación y Lenguaje L 3 (Inglés Técnico)', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (121, 'Tecnologías de la Información y la Comunicación', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (122, 'Matemáticas ', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (123, 'Estadística Descriptiva ', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (124, 'Ciencias Sociales y Formación Ciudadana', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (125, 'Química ', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (126, 'Biología', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (127, 'Ética Profesional y Relaciones Humanas', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (128, 'Producción de Contenidos Digitales', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (129, 'Laboratorio II', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (130, 'Reparación y Soporte Técnico', 'descripcion', 'A');
-INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (131, 'Seminario (Investigación-Acción)', 'descripcion', 'A');
 
 
-
-CREATE VIEW maestros_activos AS
-SELECT * FROM maestro where estado = "A";
-
-CREATE VIEW maestros_inactivos AS
-SELECT * FROM maestro where estado = "B";
-
-CREATE VIEW alumnos_activos AS 
-SELECT * FROM detalle_alumno where estado = "A";
-
-CREATE VIEW alumnos_inactivos AS 
-SELECT * FROM detalle_alumno where estado = "B";
