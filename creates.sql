@@ -1,23 +1,3 @@
-  -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
-  --
-  -- Host: 127.0.0.1    Database: escuelita_pancho_27_08_2020
-  -- ------------------------------------------------------
-  -- Server version	5.5.5-10.4.11-MariaDB
-
-  /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-  /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-  /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-  /*!40101 SET NAMES utf8 */;
-  /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-  /*!40103 SET TIME_ZONE='+00:00' */;
-  /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-  /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-  /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-  /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
-  --
-  -- Table structure for table `actividad`
-  --
 
   DROP DATABASE IF EXISTS la_escuelita_de_pancho;
   CREATE DATABASE la_escuelita_de_pancho;
@@ -25,9 +5,8 @@
   USE la_escuelita_de_pancho;
 
   DROP TABLE IF EXISTS `actividad`;
-  /*!40101 SET @saved_cs_client     = @@character_set_client */;
-  /*!40101 SET character_set_client = utf8 */;
-  CREATE TABLE `actividad` (
+  
+CREATE TABLE `actividad` (
     `id_actividad` int(11) NOT NULL AUTO_INCREMENT COMMENT 'el codigo de la actividad',
     `id_unidad` int(11) NOT NULL COMMENT 'la unidad que esta trabajando',
     `id_asignacion` int(11) NOT NULL COMMENT 'llamamos la asignacion ya que esta definida por el curso y maestro',
@@ -43,20 +22,9 @@
     CONSTRAINT `act_asignacion` FOREIGN KEY (`id_asignacion`) REFERENCES `asignacion` (`id_asignacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT `act_id_unidad` FOREIGN KEY (`id_unidad`) REFERENCES `unidad` (`id_unidad`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='define si es examen o tarea';
-  /*!40101 SET character_set_client = @saved_cs_client */;
-
-  --
-  -- Dumping data for table `actividad`
-  --
-
+  
   LOCK TABLES `actividad` WRITE;
-  /*!40000 ALTER TABLE `actividad` DISABLE KEYS */;
-  /*!40000 ALTER TABLE `actividad` ENABLE KEYS */;
   UNLOCK TABLES;
-
-  --
-  -- Table structure for table `alumno`
-  --
 
   DROP TABLE IF EXISTS `alumno`;
   /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -157,8 +125,6 @@ CREATE TABLE `curso` (
     `fecha_creacion` date NOT NULL COMMENT 'indicador de la fecha que se creo ',
     `id_grado` int(11) NOT NULL COMMENT 'LLAVE QUE APUNTA A LA TABLA GRADO',
     PRIMARY KEY (`id_curso`),
-    KEY `curso_grado_key` (`id_curso`),
-    CONSTRAINT `grado_curso` FOREIGN KEY (`id_curso`) REFERENCES `grado` (`id_grado`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='tabla que contendra todos los cursos en general\n';
   /*!40101 SET character_set_client = @saved_cs_client */;
 
