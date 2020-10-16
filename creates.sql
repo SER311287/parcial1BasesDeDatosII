@@ -178,6 +178,7 @@
     `alergias` varchar(145) DEFAULT NULL COMMENT 'problemas de salud',
     `celular_emergencia` int(11) NOT NULL COMMENT 'celular como datos de contacto ',
     `padre_emergencia` varchar(150) NOT NULL COMMENT 'padre encargado del ser',
+    `estado` enum('A', 'B') DEFAULT 'A' COMMENT 'estado si esta activa o termino como baja',
     PRIMARY KEY (`id_detalle_alumno`),
     KEY `id_alumno_idx` (`id_alumno`),
     CONSTRAINT `id_alumno_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -474,7 +475,7 @@
   LOCK TABLES `usuario` WRITE;
   UNLOCK TABLES;
 
-
+DROP TABLE IF EXISTS `grado_curso`;
 CREATE TABLE `grado_curso` (
    `id_grado_curso` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id de la tabla', 
    `id_grado` int(11) NOT NULL COMMENT 'id del grado' , 
@@ -483,6 +484,20 @@ CREATE TABLE `grado_curso` (
    CONSTRAINT `llave_grado_curso_1` FOREIGN KEY (`id_grado`) REFERENCES `grado` (`id_grado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
    CONSTRAINT `llave_grado_curso_2` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id_curso`) ON DELETE NO ACTION ON UPDATE NO ACTION
    ) ENGINE = InnoDB;
+
+
+
+
+DROP TABLE IF EXISTS `grado_alumno`;
+CREATE table `grado_alumno` (
+  `id_grado_alumno` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id de la tabla', 
+   `id_alumno` int(11) NOT NULL COMMENT 'id del grado' , 
+   `id_grado` int(11) NOT NULL COMMENT 'id del curso',
+   PRIMARY KEY (`id_grado_alumno`),
+   CONSTRAINT `llave_grado_alumno_1` FOREIGN KEY (`id_grado`) REFERENCES `grado` (`id_grado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+   CONSTRAINT `llave_grado_alumno_2` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
 
   INSERT INTO `aula` ( `nombre_aula`, `capacidad`, `usuario_creacion`, `fecha_creacion`, `usuario_modifica`, `fecha_modifica`, `estado`) VALUES
   ('c-0001', 27, 'coordinador', '7/25/2020', 'maestro', '8/22/2020', 'A'),
@@ -3058,7 +3073,6 @@ INSERT INTO papeleria_alumno (`id_alumno`) VALUES (388);
 INSERT INTO papeleria_alumno (`id_alumno`) VALUES (389);
 INSERT INTO papeleria_alumno (`id_alumno`) VALUES (390);
 
-
 INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (1,'Destrezas de Aprendizaje', 'descripcion', 'A');
 INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (2,'Comunicación y Lenguaje', 'descripcion', 'A');
 INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (3,'Conocimiento de su Mundo ', 'descripcion', 'A');
@@ -3195,3 +3209,12 @@ INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES
 
 CREATE VIEW maestros_activos AS
 SELECT * FROM maestro where estado = "A";
+
+CREATE VIEW maestros_inactivos AS
+SELECT * FROM maestro where estado = "B";
+
+CREATE VIEW alumnos_activos AS 
+SELECT * FROM detalle_alumno where estado = "A";
+
+CREATE VIEW alumnos_inactivos AS 
+SELECT * FROM detalle_alumno where estado = "B";
