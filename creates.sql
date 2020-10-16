@@ -154,7 +154,7 @@
     `nombre_curso` varchar(150) NOT NULL COMMENT 'nombre de curso a impartir',
     `observacion` varchar(155) NOT NULL COMMENT 'algun comentario del curso',
     `estado` enum('A','B') NOT NULL COMMENT 'indica si esta de Alta o Baja ',
-    `fecha_creacion` date NOT NULL COMMENT 'indicador de la fecha que se creo ',
+    `fecha_creacion` timestamp NOT NULL COMMENT 'indicador de la fecha que se creo ',
     PRIMARY KEY (`id_curso`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='tabla que contendra todos los cursos en general\n';
 
