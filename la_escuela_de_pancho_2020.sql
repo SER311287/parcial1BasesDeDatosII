@@ -149,13 +149,16 @@
   DROP TABLE IF EXISTS `curso`;
   /*!40101 SET @saved_cs_client     = @@character_set_client */;
   /*!40101 SET character_set_client = utf8 */;
-  CREATE TABLE `curso` (
+CREATE TABLE `curso` (
     `id_curso` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de curso',
     `nombre_curso` varchar(150) NOT NULL COMMENT 'nombre de curso a impartir',
     `observacion` varchar(155) NOT NULL COMMENT 'algun comentario del curso',
     `estado` enum('A','B') NOT NULL COMMENT 'indica si esta de Alta o Baja ',
     `fecha_creacion` date NOT NULL COMMENT 'indicador de la fecha que se creo ',
-    PRIMARY KEY (`id_curso`)
+    `id_grado` int(11) NOT NULL COMMENT 'LLAVE QUE APUNTA A LA TABLA GRADO',
+    PRIMARY KEY (`id_curso`),
+    KEY `curso_grado_key` (`id_curso`),
+    CONSTRAINT `grado_curso` FOREIGN KEY (`id_curso`) REFERENCES `grado` (`id_grado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='tabla que contendra todos los cursos en general\n';
   /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -190,6 +193,7 @@
     `alergias` varchar(145) DEFAULT NULL COMMENT 'problemas de salud',
     `celular_emergencia` int(11) NOT NULL COMMENT 'celular como datos de contacto ',
     `padre_emergencia` varchar(150) NOT NULL COMMENT 'padre encargado del ser',
+    `estado` enum('A', 'B') NOT NULL COMMENT 'Este es el estado de si el alumno esta en e colegio o no',
     PRIMARY KEY (`id_detalle_alumno`),
     KEY `id_alumno_idx` (`id_alumno`),
     CONSTRAINT `id_alumno_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION
