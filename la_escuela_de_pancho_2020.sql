@@ -158,7 +158,7 @@ CREATE TABLE `curso` (
     `id_grado` int(11) NOT NULL COMMENT 'LLAVE QUE APUNTA A LA TABLA GRADO',
     PRIMARY KEY (`id_curso`),
     KEY `curso_grado_key` (`id_curso`),
-    CONSTRAINT `grado_curso` FOREIGN KEY (`id_curso`) REFERENCES `grado` (`id_grado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT `grado_curso` FOREIGN KEY (`id_curso`) REFERENCES `grado` (`id_grado`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='tabla que contendra todos los cursos en general\n';
   /*!40101 SET character_set_client = @saved_cs_client */;
 
