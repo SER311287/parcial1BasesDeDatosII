@@ -1,56 +1,66 @@
-    DROP DATABASE IF EXISTS la_escuelita_de_pancho;
+  -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+  --
+  -- Host: 127.0.0.1    Database: escuelita_pancho_27_08_2020
+  -- ------------------------------------------------------
+  -- Server version	5.5.5-10.4.11-MariaDB
+
+  /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+  /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+  /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+  /*!40101 SET NAMES utf8 */;
+  /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+  /*!40103 SET TIME_ZONE='+00:00' */;
+  /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+  /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+  /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+  /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+  --
+  -- Table structure for table `actividad`
+  --
+
+  DROP DATABASE IF EXISTS la_escuelita_de_pancho;
   CREATE DATABASE la_escuelita_de_pancho;
 
   USE la_escuelita_de_pancho;
 
- 
+  DROP TABLE IF EXISTS `actividad`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
+  CREATE TABLE `actividad` (
+    `id_actividad` int(11) NOT NULL AUTO_INCREMENT COMMENT 'el codigo de la actividad',
+    `id_unidad` int(11) NOT NULL COMMENT 'la unidad que esta trabajando',
+    `id_asignacion` int(11) NOT NULL COMMENT 'llamamos la asignacion ya que esta definida por el curso y maestro',
+    `titulo_actividad` varchar(45) NOT NULL COMMENT 'el nombre que define la actividad',
+    `descripcion` varchar(45) NOT NULL COMMENT 'descripcion para definir la actividad ',
+    `fecha_creacion` date NOT NULL COMMENT 'fecha de creacion de la actividad',
+    `fecha_cierre` date NOT NULL COMMENT 'fecha cuando termine la entrega de la actividad',
+    `puntos_zona` int(11) NOT NULL COMMENT 'define los puntos acumulados para la zona',
+    `estado` enum('A','B') DEFAULT NULL COMMENT 'estado si esta activa o termino como baja',
+    PRIMARY KEY (`id_actividad`),
+    KEY `act_id_unidad_idx` (`id_unidad`),
+    KEY `act_asignacion_idx` (`id_asignacion`),
+    CONSTRAINT `act_asignacion` FOREIGN KEY (`id_asignacion`) REFERENCES `asignacion` (`id_asignacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT `act_id_unidad` FOREIGN KEY (`id_unidad`) REFERENCES `unidad` (`id_unidad`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='define si es examen o tarea';
+  /*!40101 SET character_set_client = @saved_cs_client */;
 
+  --
+  -- Dumping data for table `actividad`
+  --
 
-  DROP TABLE IF EXISTS `asignacion`;
-  CREATE TABLE `asignacion` (
-    `id_asignacion` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de identificacion de asignacion',
-    `id_alumno` int(11) NOT NULL COMMENT 'codigo del alumno asignado',
-    `id_maestro_curso` int(11) NOT NULL COMMENT 'codigo que define el curso por maestro',
-    `estado` enum('A','B') NOT NULL COMMENT 'asignacion activa o inactiva',
-    PRIMARY KEY (`id_asignacion`),
-    KEY `asig_id_alumno_idx` (`id_alumno`),
-    KEY `asig_id_macu_idx` (`id_maestro_curso`),
-    CONSTRAINT `asig_id_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT `asig_id_macu` FOREIGN KEY (`id_maestro_curso`) REFERENCES `maestro_curso` (`id_maestro_curso`) ON DELETE NO ACTION ON UPDATE NO ACTION
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='asignacion de alumnos a curso y maestros';
-
-  LOCK TABLES `asignacion` WRITE;
+  LOCK TABLES `actividad` WRITE;
+  /*!40000 ALTER TABLE `actividad` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `actividad` ENABLE KEYS */;
   UNLOCK TABLES;
 
+  --
+  -- Table structure for table `alumno`
+  --
 
-  DROP TABLE IF EXISTS `aula`;
-  CREATE TABLE `aula` (
-    `id_aula` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de identificacion para el aula',
-    `nombre_aula` varchar(150) NOT NULL COMMENT 'nombre del aula ',
-    `capacidad` int(11) DEFAULT NULL COMMENT 'numero de alumnos que puede contener dicha aula',
-    `usuario_creacion` varchar(45) DEFAULT NULL COMMENT 'usuario que crea',
-    `fecha_creacion` varchar(45) DEFAULT NULL COMMENT 'fecha en que se crea el aula',
-    `usuario_modifica` varchar(45) DEFAULT NULL COMMENT 'usuario que modifica ',
-    `fecha_modifica` varchar(45) DEFAULT NULL COMMENT 'fecha en que se le hacen cambios',
-    `estado` enum('A','B') DEFAULT NULL COMMENT 'Indica si esta de Alta o de Baja el aula\n',
-    PRIMARY KEY (`id_aula`)
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='define las aulas en disposicion y el numero maximo de alumnos que puede contener';
-
-  LOCK TABLES `aula` WRITE;
-  UNLOCK TABLES;
-
-  DROP TABLE IF EXISTS `grado`;
-  CREATE TABLE `grado` (
-    `id_grado` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo que identifica al grado',
-    `nombre_grado` varchar(45) NOT NULL COMMENT 'describe el nombre del grado',
-    `estado` enum('A','B') NOT NULL COMMENT 'Se evalua si esta activo o de baja los grados del colegio',
-    PRIMARY KEY (`id_grado`)
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Esta tabla contiene los grados del nivel primario';
-
-  LOCK TABLES `grado` WRITE;
-  UNLOCK TABLES;
-
- DROP TABLE IF EXISTS `alumno`;
+  DROP TABLE IF EXISTS `alumno`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `alumno` (
     `id_alumno` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de alumno',
     `nombre_alumno` varchar(45) NOT NULL COMMENT 'nombre completo del alumno',
@@ -65,19 +75,87 @@
     CONSTRAINT `id_grado` FOREIGN KEY (`id_grado`) REFERENCES `grado` (`id_grado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT `id_usuario` FOREIGN KEY (`id_alumno`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `alumno`
+  --
 
   LOCK TABLES `alumno` WRITE;
+  /*!40000 ALTER TABLE `alumno` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `alumno` ENABLE KEYS */;
   UNLOCK TABLES;
-DROP TABLE IF EXISTS `curso`;
 
-CREATE TABLE `curso` (
+  --
+  -- Table structure for table `asignacion`
+  --
+
+  DROP TABLE IF EXISTS `asignacion`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
+  CREATE TABLE `asignacion` (
+    `id_asignacion` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de identificacion de asignacion',
+    `id_alumno` int(11) NOT NULL COMMENT 'codigo del alumno asignado',
+    `id_maestro_curso` int(11) NOT NULL COMMENT 'codigo que define el curso por maestro',
+    `estado` enum('A','B') NOT NULL COMMENT 'asignacion activa o inactiva',
+    PRIMARY KEY (`id_asignacion`),
+    KEY `asig_id_alumno_idx` (`id_alumno`),
+    KEY `asig_id_macu_idx` (`id_maestro_curso`),
+    CONSTRAINT `asig_id_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT `asig_id_macu` FOREIGN KEY (`id_maestro_curso`) REFERENCES `maestro_curso` (`id_maestro_curso`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='asignacion de alumnos a curso y maestros';
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `asignacion`
+  --
+
+  LOCK TABLES `asignacion` WRITE;
+  /*!40000 ALTER TABLE `asignacion` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `asignacion` ENABLE KEYS */;
+  UNLOCK TABLES;
+
+  --
+  -- Table structure for table `aula`
+  --
+
+  DROP TABLE IF EXISTS `aula`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
+  CREATE TABLE `aula` (
+    `id_aula` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de identificacion para el aula',
+    `nombre_aula` varchar(150) NOT NULL COMMENT 'nombre del aula ',
+    `capacidad` int(11) DEFAULT NULL COMMENT 'numero de alumnos que puede contener dicha aula',
+    `usuario_creacion` varchar(45) DEFAULT NULL COMMENT 'usuario que crea',
+    `fecha_creacion` varchar(45) DEFAULT NULL COMMENT 'fecha en que se crea el aula',
+    `usuario_modifica` varchar(45) DEFAULT NULL COMMENT 'usuario que modifica ',
+    `fecha_modifica` varchar(45) DEFAULT NULL COMMENT 'fecha en que se le hacen cambios',
+    `estado` enum('A','B') DEFAULT NULL COMMENT 'Indica si esta de Alta o de Baja el aula\n',
+    PRIMARY KEY (`id_aula`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='define las aulas en disposicion y el numero maximo de alumnos que puede contener';
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `aula`
+  --
+
+  LOCK TABLES `aula` WRITE;
+  UNLOCK TABLES;
+
+  --
+  -- Table structure for table `curso`
+  --
+
+  DROP TABLE IF EXISTS `curso`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
+  CREATE TABLE `curso` (
     `id_curso` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de curso',
     `nombre_curso` varchar(150) NOT NULL COMMENT 'nombre de curso a impartir',
     `observacion` varchar(155) NOT NULL COMMENT 'algun comentario del curso',
     `estado` enum('A','B') NOT NULL COMMENT 'indica si esta de Alta o Baja ',
-    `fecha_creacion` date NOT NULL COMMENT 'indicador de la fecha que se creo ',
-    `id_grado` int(11) NOT NULL COMMENT 'llave que apunta al grado',
-    PRIMARY KEY (`id_curso`),
+    `fecha_creacion` timestamp NOT NULL COMMENT 'indicador de la fecha que se creo ',
+    PRIMARY KEY (`id_curso`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='tabla que contendra todos los cursos en general\n';
 
   LOCK TABLES `curso` WRITE;
@@ -100,7 +178,7 @@ CREATE TABLE `curso` (
     `alergias` varchar(145) DEFAULT NULL COMMENT 'problemas de salud',
     `celular_emergencia` int(11) NOT NULL COMMENT 'celular como datos de contacto ',
     `padre_emergencia` varchar(150) NOT NULL COMMENT 'padre encargado del ser',
-    `estado` enum('A', 'B') NOT NULL COMMENT 'Este es el estado de si el alumno esta en e colegio o no',
+    `estado` enum('A', 'B') DEFAULT 'A' COMMENT 'estado si esta activa o termino como baja',
     PRIMARY KEY (`id_detalle_alumno`),
     KEY `id_alumno_idx` (`id_alumno`),
     CONSTRAINT `id_alumno_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -109,9 +187,32 @@ CREATE TABLE `curso` (
   LOCK TABLES `detalle_alumno` WRITE;
   UNLOCK TABLES;
 
+  DROP TABLE IF EXISTS `grado`;
+  CREATE TABLE `grado` (
+    `id_grado` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo que identifica al grado',
+    `nombre_grado` varchar(45) NOT NULL COMMENT 'describe el nombre del grado',
+    `estado` enum('A','B') NOT NULL COMMENT 'Se evalua si esta activo o de baja los grados del colegio',
+    `anio` int(11) NOT NULL COMMENT 'año de entrada',
+    PRIMARY KEY (`id_grado`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Esta tabla contiene los grados del nivel primario';
+  /*!40101 SET character_set_client = @saved_cs_client */;
 
+  --
+  -- Dumping data for table `grado`
+  --
+
+  LOCK TABLES `grado` WRITE;
+  /*!40000 ALTER TABLE `grado` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `grado` ENABLE KEYS */;
+  UNLOCK TABLES;
+
+  --
+  -- Table structure for table `horario`
+  --
 
   DROP TABLE IF EXISTS `horario`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `horario` (
     `id_horario` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo del horario del dia',
     `descripcion` varchar(155) NOT NULL COMMENT 'descripcion para el horario',
@@ -124,23 +225,48 @@ CREATE TABLE `curso` (
     CONSTRAINT `ho_id_macu` FOREIGN KEY (`id_maestro_curso`) REFERENCES `maestro_curso` (`id_maestro_curso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT `ho_id_periodo_dia` FOREIGN KEY (`id_periodo_dia`) REFERENCES `periodo_dia` (`id_periodo_dia`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='asignacion de los cursos al dia de periodo';
+  /*!40101 SET character_set_client = @saved_cs_client */;
 
+  --
+  -- Dumping data for table `horario`
+  --
 
   LOCK TABLES `horario` WRITE;
+  /*!40000 ALTER TABLE `horario` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `horario` ENABLE KEYS */;
   UNLOCK TABLES;
 
+  --
+  -- Table structure for table `identificacion`
+  --
+
   DROP TABLE IF EXISTS `identificacion`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `identificacion` (
     `id_identificacion` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de identificacion ',
     `nombre_identificacion` varchar(45) NOT NULL COMMENT 'nombre de la identificacion',
     `estado` enum('A','B') NOT NULL COMMENT 'Indica si esta de Alta o de Baja el aula\n',
     PRIMARY KEY (`id_identificacion`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='nos indica el tipo de documento que puede utizar ';
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `identificacion`
+  --
 
   LOCK TABLES `identificacion` WRITE;
+  /*!40000 ALTER TABLE `identificacion` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `identificacion` ENABLE KEYS */;
   UNLOCK TABLES;
 
+  --
+  -- Table structure for table `maestro`
+  --
+
   DROP TABLE IF EXISTS `maestro`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `maestro` (
     `id_maestro` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo que identifica al maestro',
     `id_identificacion` int(11) NOT NULL COMMENT 'fk a la tabla de identificacion ',
@@ -153,11 +279,24 @@ CREATE TABLE `curso` (
     KEY `id_identificacion_idx` (`id_identificacion`),
     CONSTRAINT `id_identificacion` FOREIGN KEY (`id_identificacion`) REFERENCES `identificacion` (`id_identificacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='tabla con los datos importantes del maestro';
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `maestro`
+  --
 
   LOCK TABLES `maestro` WRITE;
+  /*!40000 ALTER TABLE `maestro` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `maestro` ENABLE KEYS */;
   UNLOCK TABLES;
 
+  --
+  -- Table structure for table `maestro_curso`
+  --
+
   DROP TABLE IF EXISTS `maestro_curso`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `maestro_curso` (
     `id_maestro_curso` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de asignacion',
     `id_maestro` int(11) NOT NULL COMMENT 'id maestro para hacer match',
@@ -176,12 +315,24 @@ CREATE TABLE `curso` (
     CONSTRAINT `macu_id_grado` FOREIGN KEY (`id_grado`) REFERENCES `grado` (`id_grado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT `macu_id_maestro` FOREIGN KEY (`id_maestro_curso`) REFERENCES `maestro` (`id_maestro`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='match entre maestro y curso ';
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `maestro_curso`
+  --
 
   LOCK TABLES `maestro_curso` WRITE;
+  /*!40000 ALTER TABLE `maestro_curso` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `maestro_curso` ENABLE KEYS */;
   UNLOCK TABLES;
 
+  --
+  -- Table structure for table `papeleria_alumno`
+  --
 
   DROP TABLE IF EXISTS `papeleria_alumno`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `papeleria_alumno` (
     `id_papeleria_alumno` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de papeleria de alumno\n',
     `id_alumno` int(11) NOT NULL COMMENT 'codigo del alumno ',
@@ -198,13 +349,24 @@ CREATE TABLE `curso` (
     KEY `id_alumno_idx` (`id_alumno`),
     CONSTRAINT `id_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='contiene datos de certificaciones del alumno';
+  /*!40101 SET character_set_client = @saved_cs_client */;
 
+  --
+  -- Dumping data for table `papeleria_alumno`
+  --
 
   LOCK TABLES `papeleria_alumno` WRITE;
+  /*!40000 ALTER TABLE `papeleria_alumno` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `papeleria_alumno` ENABLE KEYS */;
   UNLOCK TABLES;
 
+  --
+  -- Table structure for table `periodo_dia`
+  --
 
   DROP TABLE IF EXISTS `periodo_dia`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `periodo_dia` (
     `id_periodo_dia` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo para definir el periodo en el que esta',
     `nombre_periodo` varchar(45) NOT NULL COMMENT 'descripcion o titulo para el periodo',
@@ -214,13 +376,24 @@ CREATE TABLE `curso` (
     `estado` enum('A','B') NOT NULL,
     PRIMARY KEY (`id_periodo_dia`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='grupo por dias de horario';
+  /*!40101 SET character_set_client = @saved_cs_client */;
 
+  --
+  -- Dumping data for table `periodo_dia`
+  --
 
   LOCK TABLES `periodo_dia` WRITE;
+  /*!40000 ALTER TABLE `periodo_dia` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `periodo_dia` ENABLE KEYS */;
   UNLOCK TABLES;
 
+  --
+  -- Table structure for table `respuesta_actividad`
+  --
 
   DROP TABLE IF EXISTS `respuesta_actividad`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `respuesta_actividad` (
     `id_respuesta_actividad` int(11) NOT NULL AUTO_INCREMENT,
     `id_actividad` int(11) NOT NULL,
@@ -237,9 +410,20 @@ CREATE TABLE `curso` (
     CONSTRAINT `reac_id_actividad` FOREIGN KEY (`id_actividad`) REFERENCES `actividad` (`id_actividad`) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT `reac_id_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='respuesta a la actividad creada';
-  
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `respuesta_actividad`
+  --
+
   LOCK TABLES `respuesta_actividad` WRITE;
+  /*!40000 ALTER TABLE `respuesta_actividad` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `respuesta_actividad` ENABLE KEYS */;
   UNLOCK TABLES;
+
+  --
+  -- Table structure for table `unidad`
+  --
 
   DROP TABLE IF EXISTS `unidad`;
   /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -252,33 +436,24 @@ CREATE TABLE `curso` (
     `estado` enum('A','I') DEFAULT NULL COMMENT 'Unidad activa o inactiva',
     PRIMARY KEY (`id_unidad`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `unidad`
+  --
 
   LOCK TABLES `unidad` WRITE;
+  /*!40000 ALTER TABLE `unidad` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `unidad` ENABLE KEYS */;
   UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `actividad`;
-  CREATE TABLE `actividad` (
-    `id_actividad` int(11) NOT NULL AUTO_INCREMENT COMMENT 'el codigo de la actividad',
-    `id_unidad` int(11) NOT NULL COMMENT 'la unidad que esta trabajando',
-    `id_asignacion` int(11) NOT NULL COMMENT 'llamamos la asignacion ya que esta definida por el curso y maestro',
-    `titulo_actividad` varchar(45) NOT NULL COMMENT 'el nombre que define la actividad',
-    `descripcion` varchar(45) NOT NULL COMMENT 'descripcion para definir la actividad ',
-    `fecha_creacion` date NOT NULL COMMENT 'fecha de creacion de la actividad',
-    `fecha_cierre` date NOT NULL COMMENT 'fecha cuando termine la entrega de la actividad',
-    `puntos_zona` int(11) NOT NULL COMMENT 'define los puntos acumulados para la zona',
-    `estado` enum('A','B') DEFAULT NULL COMMENT 'estado si esta activa o termino como baja',
-    PRIMARY KEY (`id_actividad`),
-    KEY `act_id_unidad_idx` (`id_unidad`),
-    KEY `act_asignacion_idx` (`id_asignacion`),
-    CONSTRAINT `act_asignacion` FOREIGN KEY (`id_asignacion`) REFERENCES `asignacion` (`id_asignacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT `act_id_unidad` FOREIGN KEY (`id_unidad`) REFERENCES `unidad` (`id_unidad`) ON DELETE NO ACTION ON UPDATE NO ACTION
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='define si es examen o tarea';
-
-  LOCK TABLES `actividad` WRITE;
-  UNLOCK TABLES;
-
+  --
+  -- Table structure for table `usuario`
+  --
 
   DROP TABLE IF EXISTS `usuario`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `usuario` (
     `id_usuario` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo del usuario',
     `usuario` varchar(45) NOT NULL COMMENT 'nombre del usuario',
@@ -291,13 +466,42 @@ DROP TABLE IF EXISTS `actividad`;
     `status` enum('A','B') NOT NULL COMMENT 'Indica si esta de Alta o de Baja del usuario',
     PRIMARY KEY (`id_usuario`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='tabla que contiene a los usuarios que manejaran la informacion ';
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `usuario`
+  --
 
   LOCK TABLES `usuario` WRITE;
   UNLOCK TABLES;
 
+DROP TABLE IF EXISTS `grado_curso`;
+CREATE TABLE `grado_curso` (
+   `id_grado_curso` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id de la tabla', 
+   `id_grado` int(11) NOT NULL COMMENT 'id del grado' , 
+   `id_curso` int(11) NOT NULL COMMENT 'id del curso',
+   PRIMARY KEY (`id_grado_curso`),
+   CONSTRAINT `llave_grado_curso_1` FOREIGN KEY (`id_grado`) REFERENCES `grado` (`id_grado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+   CONSTRAINT `llave_grado_curso_2` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id_curso`) ON DELETE NO ACTION ON UPDATE NO ACTION
+   ) ENGINE = InnoDB;
 
 
 
+
+DROP TABLE IF EXISTS `grado_alumno`;
+CREATE table `grado_alumno` (
+  `id_grado_alumno` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id de la tabla', 
+   `id_alumno` int(11) NOT NULL COMMENT 'id del grado' , 
+   `id_grado` int(11) NOT NULL COMMENT 'id del curso',
+   PRIMARY KEY (`id_grado_alumno`),
+   CONSTRAINT `llave_grado_alumno_1` FOREIGN KEY (`id_grado`) REFERENCES `grado` (`id_grado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+   CONSTRAINT `llave_grado_alumno_2` FOREIGN KEY (`id_alumno`) REFERENCES `detalle_alumno` (`id_alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+
+
+
+USE la_escuelita_de_pancho;
   INSERT INTO `aula` ( `nombre_aula`, `capacidad`, `usuario_creacion`, `fecha_creacion`, `usuario_modifica`, `fecha_modifica`, `estado`) VALUES
   ('c-0001', 27, 'coordinador', '7/25/2020', 'maestro', '8/22/2020', 'A'),
   ('c-0002', 26, 'coordinador', '7/25/2020', 'maestro', '8/24/2020', 'A'),
@@ -867,13 +1071,7 @@ DROP TABLE IF EXISTS `actividad`;
   /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
   /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
-  INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`, `fecha_creacion`) VALUES
-  (1, 'Hogar', 'Muy dificil', 'B', '2020-08-29 02:18:35'),
-  (2, 'Mate', 'Es muy dificil', 'A', '2020-08-29 01:15:40'),
-  (3, 'Idioma', 'Es muy dificil', 'B', '2020-08-29 01:17:37'),
-  (4, 'Deporte', 'Es muy facil', 'A', '2020-08-29 01:17:37'),
-  (5, 'Sociales', 'Medio Medio', 'B', '2020-08-29 01:17:37'),
-  (6, 'Ciencias', 'Muy dificil', 'A', '2020-08-29 01:17:37');
+
 
   --
   -- Indexes for dumped tables
@@ -884,22 +1082,22 @@ DROP TABLE IF EXISTS `actividad`;
   --
     
     
-  INSERT INTO `grado` (`id_grado`, `nombre_grado`, `estado`) VALUES
-  (1, 'Prekinder1', 'A'),
-  (2, 'Prekinder2', 'A'),
-  (3, 'Kinder', 'A'),
-  (4, 'Preparatoria', 'A'),
-  (5, 'Primero Primaria', 'A'),
-  (6, 'Segundo Primaria', 'A'),
-  (7, 'Tercero Primaria', 'A'),
-  (8, 'Cuarto Primaria', 'A'),
-  (9, 'Quinto Primaria', 'A'),
-  (10, 'Sexto Primaria', 'A'),
-  (11, 'Primero Básico', 'A'),
-  (12, 'Segundo Básico', 'A'),
-  (13, 'Tercero Básico', 'A'),
-  (14, 'Cuarto Bachillerato', 'A'),
-  (15, 'Quinto Bachillerato', 'A');
+  INSERT INTO `grado` (`id_grado`, `nombre_grado`, `estado`, `anio`) VALUES
+  (1, 'Prekinder1', 'A', 2017),
+  (2, 'Prekinder2', 'A', 2016),
+  (3, 'Kinder', 'A', 2015),
+  (4, 'Preparatoria', 'A', 2014),
+  (5, 'Primero Primaria', 'A', 2013),
+  (6, 'Segundo Primaria', 'A', 2012),
+  (7, 'Tercero Primaria', 'A', 2011),
+  (8, 'Cuarto Primaria', 'A', 2010),
+  (9, 'Quinto Primaria', 'A', 2009),
+  (10, 'Sexto Primaria', 'A', 2008),
+  (11, 'Primero Básico', 'A', 2007),
+  (12, 'Segundo Básico', 'A', 2006),
+  (13, 'Tercero Básico', 'A', 2005),
+  (14, 'Cuarto Bachillerato', 'A', 2004),
+  (15, 'Quinto Bachillerato', 'A', 2003);
 
   --
   -- Indexes for dumped tables
@@ -2095,25 +2293,6 @@ DROP TABLE IF EXISTS `actividad`;
   ('Charlotte Harrell', 0, '99890 South Bouvet Island St.', 461, 'Courtney@hymenaeos.net', '2020-08-25', 4),
   ('Keiko Hanson', 0, '51313 North Highland Park Way', 27, 'Tyrone@porttitor.org', '2020-08-22', 3);
 
-  --
-  -- Indexes for dumped tables
-  --
-
-  --
-  -- Indexes for table `alumno`
-  --
-
-  --
-  -- AUTO_INCREMENT for dumped tables
-  --
-
-  --
-  -- AUTO_INCREMENT for table `alumno`
-  --
-
-  /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-  /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-  /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (1,'Ciudad de Guatemala','2017/09/28','F','Guatemalteco(a)',0.91,89.18,'Mormón','2020/01/24','O-','359-105-1434','Garrett Cantu','-');
 INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (2,'Ciudad de Guatemala','2017/03/22','F','Guatemalteco(a)',0.86,25.51,'Católico','2020/03/5','O-','379-173-2160','Tallulah Edwards','Polen');
 INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (3,'Ciudad de Guatemala','2017/04/19','M','Guatemalteco(a)',0.72,95.53,'Católico','2020/09/25','AB','079-627-0882','Marshall Stewart','Perfumes');
@@ -2501,510 +2680,541 @@ INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`g
 INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (385,'Ciudad de Guatemala','2004/09/11','M','Guatemalteco(a)',1.26,117.06,'Católico','2020/03/19','O+','9385-444-8351','Sasha Wells','Ácaros de polvo');
 INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (386,'Ciudad de Guatemala','2004/02/24','F','Guatemalteco(a)',1.25,101.28,'Evangélico','2020/04/20','A-','845-809-9370','Dale Wall','Animales');
 INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (387,'Ciudad de Guatemala','2004/05/18','F','Guatemalteco(a)',1.26,108.54,'Mormón','2020/09/19','A+','167-194-8456','Kalia Hart','Ácaros de polvo');
-INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (388,'Ciudad de Guatemala','2004/04/9','F','Guatemalteco(a)',1.27,112.30,'Ninguna','2020/02/388','AB','573-351-8484','Sade Carver','Alergias a medicamentos');
-INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (389,'Ciudad de Guatemala','2004/09/30','F','Guatemalteco(a)',1.26,119.48,'Evangélico','2020/08/30','A-','610-692-9774','Galvin Donovan','Alergias a medicamentos');
-INSERT INTO detalle_alumno (`id_alumno`,`lugar_nacimiento`,`fecha_nacimiento`,`genero`,`nacionalidad`,`estatura`,`peso`,`religion`,`fecha_ingreso`,`tipo_sangre`,`celular_emergencia`,`padre_emergencia`,`alergias`) VALUES (390,'Ciudad de Guatemala','2004/05/27','F','Guatemalteco(a)',1.27,116.64,'Ninguna','2020/09/17','A-','451-317-4045','Regan Sharpe','Moho');
 
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (1);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (2);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (3);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (4);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (5);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (6);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (7);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (8);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (9);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (10);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (11);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (12);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (13);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (14);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (15);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (16);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (17);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (18);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (19);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (20);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (21);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (22);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (23);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (24);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (25);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (26);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (27);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (28);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (29);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (30);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (31);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (32);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (33);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (34);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (35);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (36);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (37);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (38);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (39);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (40);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (41);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (42);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (43);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (44);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (45);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (46);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (47);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (48);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (49);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (50);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (51);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (52);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (53);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (54);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (55);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (56);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (57);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (58);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (59);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (60);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (61);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (62);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (63);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (64);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (65);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (66);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (67);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (68);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (69);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (70);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (71);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (72);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (73);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (74);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (75);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (76);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (77);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (78);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (79);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (80);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (81);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (82);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (83);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (84);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (85);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (86);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (87);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (88);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (89);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (90);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (91);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (92);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (93);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (94);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (95);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (96);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (97);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (98);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (99);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (100);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (101);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (102);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (103);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (104);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (105);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (106);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (107);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (108);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (109);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (110);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (111);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (112);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (113);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (114);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (115);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (116);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (117);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (118);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (119);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (120);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (121);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (122);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (123);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (124);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (125);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (126);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (127);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (128);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (129);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (130);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (131);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (132);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (133);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (134);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (135);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (136);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (137);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (138);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (139);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (140);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (141);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (142);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (143);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (144);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (145);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (146);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (147);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (148);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (149);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (150);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (151);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (152);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (153);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (154);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (155);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (156);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (157);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (158);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (159);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (160);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (161);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (162);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (163);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (164);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (165);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (166);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (167);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (168);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (169);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (170);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (171);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (172);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (173);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (174);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (175);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (176);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (177);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (178);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (179);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (180);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (181);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (182);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (183);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (184);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (185);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (186);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (187);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (188);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (189);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (190);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (191);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (192);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (193);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (194);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (195);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (196);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (197);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (198);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (199);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (200);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (201);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (202);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (203);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (204);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (205);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (206);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (207);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (208);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (209);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (210);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (211);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (212);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (213);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (214);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (215);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (216);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (217);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (218);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (219);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (220);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (221);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (222);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (223);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (224);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (225);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (226);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (227);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (228);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (229);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (230);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (231);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (232);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (233);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (234);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (235);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (236);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (237);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (238);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (239);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (240);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (241);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (242);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (243);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (244);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (245);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (246);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (247);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (248);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (249);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (250);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (251);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (252);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (253);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (254);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (255);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (256);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (257);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (258);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (259);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (260);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (261);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (262);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (263);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (264);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (265);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (266);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (267);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (268);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (269);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (270);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (271);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (272);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (273);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (274);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (275);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (276);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (277);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (278);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (279);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (280);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (281);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (282);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (283);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (284);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (285);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (286);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (287);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (288);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (289);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (290);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (291);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (292);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (293);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (294);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (295);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (296);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (297);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (298);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (299);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (300);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (301);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (302);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (303);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (304);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (305);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (306);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (307);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (308);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (309);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (310);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (311);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (312);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (313);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (314);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (315);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (316);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (317);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (318);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (319);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (320);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (321);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (322);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (323);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (324);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (325);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (326);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (327);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (328);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (329);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (330);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (331);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (332);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (333);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (334);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (335);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (336);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (337);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (338);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (339);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (340);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (341);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (342);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (343);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (344);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (345);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (346);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (347);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (348);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (349);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (350);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (351);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (352);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (353);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (354);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (355);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (356);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (357);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (358);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (359);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (360);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (361);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (362);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (363);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (364);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (365);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (366);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (367);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (368);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (369);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (370);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (371);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (372);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (373);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (374);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (375);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (376);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (377);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (378);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (379);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (380);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (381);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (382);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (383);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (384);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (385);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (386);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (387);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (388);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (389);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (390);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (391);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (392);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (393);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (394);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (395);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (396);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (397);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (398);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (399);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (400);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (401);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (402);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (403);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (404);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (405);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (406);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (407);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (408);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (409);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (410);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (411);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (412);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (413);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (414);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (415);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (416);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (417);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (418);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (419);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (420);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (421);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (422);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (423);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (424);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (425);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (426);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (427);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (428);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (429);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (430);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (431);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (432);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (433);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (434);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (435);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (436);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (437);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (438);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (439);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (440);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (441);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (442);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (443);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (444);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (445);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (446);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (447);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (448);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (449);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (450);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (451);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (452);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (453);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (454);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (455);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (456);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (457);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (458);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (459);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (460);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (461);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (462);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (463);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (464);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (465);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (466);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (467);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (468);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (469);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (470);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (471);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (472);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (473);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (474);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (475);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (476);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (477);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (478);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (479);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (480);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (481);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (482);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (483);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (484);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (485);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (486);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (487);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (488);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (489);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (490);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (491);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (492);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (493);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (494);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (495);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (496);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (497);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (498);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (499);
-  INSERT INTO papeleria_alumno (`id_alumno`) VALUES (500);
+
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (1);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (2);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (3);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (4);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (5);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (6);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (7);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (8);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (9);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (10);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (11);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (12);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (13);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (14);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (15);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (16);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (17);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (18);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (19);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (20);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (21);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (22);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (23);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (24);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (25);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (26);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (27);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (28);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (29);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (30);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (31);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (32);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (33);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (34);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (35);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (36);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (37);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (38);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (39);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (40);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (41);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (42);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (43);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (44);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (45);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (46);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (47);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (48);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (49);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (50);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (51);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (52);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (53);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (54);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (55);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (56);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (57);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (58);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (59);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (60);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (61);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (62);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (63);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (64);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (65);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (66);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (67);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (68);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (69);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (70);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (71);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (72);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (73);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (74);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (75);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (76);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (77);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (78);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (79);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (80);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (81);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (82);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (83);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (84);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (85);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (86);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (87);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (88);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (89);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (90);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (91);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (92);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (93);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (94);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (95);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (96);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (97);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (98);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (99);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (100);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (101);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (102);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (103);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (104);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (105);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (106);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (107);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (108);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (109);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (110);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (111);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (112);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (113);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (114);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (115);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (116);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (117);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (118);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (119);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (120);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (121);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (122);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (123);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (124);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (125);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (126);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (127);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (128);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (129);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (130);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (131);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (132);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (133);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (134);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (135);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (136);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (137);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (138);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (139);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (140);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (141);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (142);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (143);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (144);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (145);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (146);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (147);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (148);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (149);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (150);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (151);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (152);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (153);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (154);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (155);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (156);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (157);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (158);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (159);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (160);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (161);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (162);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (163);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (164);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (165);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (166);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (167);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (168);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (169);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (170);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (171);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (172);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (173);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (174);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (175);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (176);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (177);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (178);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (179);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (180);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (181);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (182);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (183);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (184);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (185);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (186);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (187);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (188);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (189);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (190);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (191);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (192);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (193);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (194);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (195);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (196);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (197);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (198);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (199);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (200);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (201);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (202);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (203);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (204);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (205);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (206);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (207);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (208);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (209);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (210);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (211);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (212);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (213);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (214);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (215);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (216);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (217);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (218);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (219);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (220);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (221);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (222);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (223);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (224);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (225);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (226);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (227);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (228);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (229);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (230);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (231);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (232);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (233);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (234);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (235);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (236);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (237);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (238);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (239);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (240);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (241);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (242);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (243);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (244);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (245);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (246);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (247);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (248);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (249);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (250);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (251);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (252);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (253);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (254);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (255);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (256);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (257);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (258);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (259);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (260);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (261);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (262);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (263);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (264);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (265);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (266);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (267);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (268);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (269);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (270);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (271);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (272);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (273);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (274);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (275);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (276);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (277);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (278);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (279);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (280);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (281);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (282);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (283);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (284);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (285);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (286);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (287);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (288);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (289);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (290);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (291);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (292);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (293);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (294);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (295);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (296);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (297);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (298);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (299);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (300);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (301);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (302);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (303);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (304);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (305);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (306);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (307);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (308);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (309);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (310);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (311);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (312);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (313);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (314);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (315);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (316);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (317);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (318);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (319);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (320);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (321);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (322);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (323);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (324);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (325);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (326);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (327);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (328);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (329);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (330);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (331);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (332);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (333);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (334);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (335);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (336);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (337);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (338);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (339);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (340);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (341);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (342);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (343);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (344);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (345);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (346);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (347);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (348);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (349);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (350);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (351);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (352);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (353);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (354);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (355);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (356);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (357);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (358);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (359);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (360);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (361);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (362);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (363);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (364);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (365);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (366);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (367);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (368);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (369);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (370);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (371);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (372);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (373);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (374);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (375);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (376);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (377);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (378);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (379);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (380);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (381);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (382);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (383);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (384);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (385);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (386);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (387);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (388);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (389);
+INSERT INTO papeleria_alumno (`id_alumno`) VALUES (390);
+
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (1,'Destrezas de Aprendizaje', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (2,'Comunicación y Lenguaje', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (3,'Conocimiento de su Mundo ', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (4,'Estimulación Artística', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (5,'Motricidad', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (6,'Destrezas de Aprendizaje', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (7,'Comunicación y Lenguaje', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (8,'Conocimiento de su Mundo ', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (9,'Estimulación Artística', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (10,'Educación Física', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (11,'Destrezas de Aprendizaje', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (12,'Comunicación y Lenguaje', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (13,'Conocimiento de su Mundo ', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (14,'Estimulación Artística', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (15,'Educación Física', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (16,'Destrezas de Aprendizaje', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (17,'Comunicación y Lenguaje', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (18,'Conocimiento de su Mundo ', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (19,'Estimulación Artística', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (20,'Educación Física', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (21,'Comunicación y Lenguaje L 1 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (22,'Comunicación y Lenguaje L 2 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (23,'Comunicación y Lenguaje L 3 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (24,'Matemáticas', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (25,'Medio Social y Natural', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (26,'Expresión Artística', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (27,'Educación Física', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (28,'Formación Ciudadana', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (29,'Comunicación y Lenguaje L 1 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (30,'Comunicación y Lenguaje L 2 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (31,'Comunicación y Lenguaje L 3 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (32,'Matemáticas', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (33,'Medio Social y Natural', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (34,'Expresión Artística', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (35,'Educación Física', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (36,'Formación Ciudadana', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (37,'Comunicación y Lenguaje L 1 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (38,'Comunicación y Lenguaje L 2 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (39,'Comunicación y Lenguaje L 3 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (40,'Matemáticas', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (41,'Medio Social y Natural', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (42,'Expresión Artística', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (43,'Educación Física', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (44,'Formación Ciudadana', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (45,'Comunicación y Lenguaje L 1 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (46,'Comunicación y Lenguaje L 2 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (47,'Comunicación y Lenguaje L 3 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (48,'Matemáticas', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (49,'Ciencias Naturales y Tecnología', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (50,'Ciencias Sociales', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (51,'Educación Física', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (52,'Formación Ciudadana', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (53,'Productividad y Desarrollo', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (54,'Comunicación y Lenguaje L 1 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (55,'Comunicación y Lenguaje L 2 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (56,'Comunicación y Lenguaje L 3 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (57,'Matemáticas', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (58,'Ciencias Naturales y Tecnología', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (59,'Ciencias Sociales', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (60,'Educación Física', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (61,'Formación Ciudadana', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (62,'Productividad y Desarrollo', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (63,'Comunicación y Lenguaje L 1 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (64,'Comunicación y Lenguaje L 2 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (65,'Comunicación y Lenguaje L 3 ', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (66,'Matemáticas', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (67,'Ciencias Naturales y Tecnología', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (68,'Ciencias Sociales', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (69,'Educación Física', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (70,'Formación Ciudadana', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (71,'Productividad y Desarrollo', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (72, 'Comunicación y Lenguaje Idioma Español', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (73, 'Comunicación y Lenguaje Idioma Extranjero', 'descripcion',	'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (74, 'Matemática', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (75, 'Ciencias Naturales', 'descripcion',	'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (76, 'Ciencias Sociales, Formación Ciudadana e Interculturalidad', 'descripcion',	'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (77, 'Cultura e Idiomas Maya, Garífuna o Xinca', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (78, 'Educación Artística', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (79, 'Educación Física', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (80, 'Emprendimiento para la Productividad', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (81, 'Tecnologías del Aprendizaje y la Comunicación', 'descripcion','A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (82, 'Matemáticas', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (83, 'Ciencias Naturales', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (84, 'Ciencias Sociales y Formación Ciudadana', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (85, 'Productividad y Desarrollo', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (86, 'Educación Física', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (87, 'L 1 Español', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (88, 'L 1 Idiomas Mayas', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (89, 'L 2 Idiomas Mayas', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (90, 'L 3 Inglés', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (91, 'Formación Musical', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (92, 'Artes Plásticas', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (93, 'Danza y Expresión Corporal', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (94, 'Teatro', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (95, 'Matemáticas', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (96, 'Ciencias Naturales', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (97, 'Ciencias Sociales y Formación Ciudadana', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (98, 'Productividad y Desarrollo', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (99, 'Educación Física', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (100, 'L 1 Español', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (101, 'L 1 Idiomas Mayas', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (102, 'L 2 Idiomas Mayas', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (103, 'L 3 Inglés', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (104, 'Formación Musical', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (105, 'Artes Plásticas', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (106, 'Danza y Expresión Corporal', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (107, 'Teatro', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (108, 'Lengua y Literatura', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (109, 'Comunicación y Lenguaje L 3 (Inglés Técnico)', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (110, 'Matemáticas', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (111, 'Contabilidad', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (112, 'Ciencias Sociales y Formación Ciudadana', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (113, 'Física 	Educación Física ', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (114, 'Expresión Artística', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (115, 'Filosofía', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (116, 'Computación Aplicada', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (117, 'Laboratorio I', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (118, 'Sistemas e Instalación de Software', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (119, 'Lengua y Literatura', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (120, 'Comunicación y Lenguaje L 3 (Inglés Técnico)', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (121, 'Tecnologías de la Información y la Comunicación', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (122, 'Matemáticas ', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (123, 'Estadística Descriptiva ', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (124, 'Ciencias Sociales y Formación Ciudadana', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (125, 'Química ', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (126, 'Biología', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (127, 'Ética Profesional y Relaciones Humanas', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (128, 'Producción de Contenidos Digitales', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (129, 'Laboratorio II', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (130, 'Reparación y Soporte Técnico', 'descripcion', 'A');
+INSERT INTO `curso` (`id_curso`, `nombre_curso`, `observacion`, `estado`) VALUES (131, 'Seminario (Investigación-Acción)', 'descripcion', 'A');
+
+
 
 CREATE VIEW maestros_activos AS
 SELECT * FROM maestro where estado = "A";
+
+CREATE VIEW maestros_inactivos AS
+SELECT * FROM maestro where estado = "B";
+
+CREATE VIEW alumnos_activos AS 
+SELECT * FROM detalle_alumno where estado = "A";
+
+CREATE VIEW alumnos_inactivos AS 
+SELECT * FROM detalle_alumno where estado = "B";
