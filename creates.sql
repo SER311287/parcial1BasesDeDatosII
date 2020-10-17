@@ -583,3 +583,232 @@ DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tipo_inteligencia`(in id_alumno int, bimestre int)
+BEGIN
+select  c.nombre_alumno, b.nombre_curso, a.nota_primer_bimestre, a.nota_segundo_bimestre, a.nota_tercer_bimestre, a.nota_cuarto_bimestre,
+  round((a.nota_primer_bimestre + a.nota_segundo_bimestre+ a.nota_tercer_bimestre+a.nota_cuarto_bimestre)/bimestre,2) as Promedio
+from notas as a
+join curso as b on a.id_curso=b.id_curso
+join alumno as c on a.id_alumno=c.id_alumno
+ where (((a.nota_primer_bimestre + a.nota_segundo_bimestre+ a.nota_tercer_bimestre+ a.nota_cuarto_bimestre)/bimestre) )>=50
+ and a.id_alumno = id_alumno
+ order by promedio desc;
+END
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `top_Estudiantes`(in Materia varchar(25))
+BEGIN
+select c.nombre_alumno , b.nombre_curso, a.nota_primer_bimestre, a.nota_segundo_bimestre, a.nota_tercer_bimestre, a.nota_cuarto_bimestre,
+  ((a.nota_primer_bimestre + a.nota_segundo_bimestre+ a.nota_tercer_bimestre+a.nota_cuarto_bimestre)/4) as Promedio
+  ,IF(((((a.nota_primer_bimestre + a.nota_segundo_bimestre+ a.nota_tercer_bimestre+a.nota_cuarto_bimestre)/4)))  >=80 , "top_estudiante", " ") as top 
+from notas as a
+join curso as b on a.id_curso=b.id_curso
+join alumno as c on a.id_alumno=c.id_alumno
+ where  ((a.nota_primer_bimestre + a.nota_segundo_bimestre+ a.nota_tercer_bimestre+ a.nota_cuarto_bimestre)/4)>=80 and b.nombre_curso=Materia
+group by a.id_alumno 
+order by Promedio desc limit 10
+;
+END
+
+
+CREATE DATABASE `bd_2` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+
+-- tabla alumno
+CREATE TABLE `alumno` (
+  `id_alumno` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(50) DEFAULT NULL,
+  `correo` varchar(45) DEFAULT NULL,
+  `telefono` varchar(45) DEFAULT NULL,
+  `credito` enum('S','N') DEFAULT 'N',
+  PRIMARY KEY (`id_alumno`)
+) ENGINE=InnoDB AUTO_INCREMENT=1003 DEFAULT CHARSET=utf8mb4;
+
+-- tabla bitacora_curso
+CREATE TABLE `bitacora_curso` (
+  `id_bitacora_curso` int(11) NOT NULL AUTO_INCREMENT,
+  `campo` varchar(50) NOT NULL,
+  `valor_anterior` varchar(200) DEFAULT NULL,
+  `valor_nuevo` varchar(200) DEFAULT NULL,
+  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
+  `tipo_operacion` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_bitacora_curso`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
+
+-- tabla curso
+CREATE TABLE `curso` (
+  `id_curso` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(200) CHARACTER SET utf8mb4 DEFAULT NULL,
+  `precio` decimal(10,2) DEFAULT 0.00,
+  `precio_iva` decimal(10,4) GENERATED ALWAYS AS (`precio` * 0.12) VIRTUAL,
+  PRIMARY KEY (`id_curso`)
+) ENGINE=InnoDB AUTO_INCREMENT=209 DEFAULT CHARSET=utf8;
+
+-- tabla detalle_curso
+CREATE TABLE `detalle_factura` (
+  `id_detalle_factura` int(11) NOT NULL AUTO_INCREMENT,
+  `id_encabezado_factura` int(11) NOT NULL,
+  `id_curso` int(11) NOT NULL,
+  `descripcion` varchar(250) NOT NULL,
+  `cantidad` int(11) DEFAULT 0,
+  `valor` decimal(10,2) DEFAULT 0.00,
+  `precio_iva` decimal(10,4) DEFAULT NULL,
+  `estado_documento` enum('A','B') NOT NULL DEFAULT 'A',
+  PRIMARY KEY (`id_detalle_factura`)
+) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8;
+
+-- tabla encabezado_factura
+CREATE TABLE `encabezado_factura` (
+  `id_encabezado_factura` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `fecha` datetime NOT NULL,
+  `fecha_emision` datetime NOT NULL DEFAULT current_timestamp(),
+  `factura` varchar(15) NOT NULL,
+  `serie` varchar(15) DEFAULT 'A',
+  `id_alumno` int(11) NOT NULL,
+  `cuenta` varchar(11) DEFAULT NULL,
+  `descripcion` varchar(100) DEFAULT NULL,
+  `direccion` varchar(100) DEFAULT NULL,
+  `telefono` varchar(15) DEFAULT NULL,
+  `valor` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `porcentaje_abono` int(11) DEFAULT NULL,
+  `abono` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `saldo` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `estado_pagado` enum('P','C') NOT NULL DEFAULT 'P',
+  `id_operador` int(11) DEFAULT NULL,
+  `estado_registro` enum('A','B') NOT NULL DEFAULT 'A',
+  PRIMARY KEY (`id_encabezado_factura`)
+) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8 COMMENT='Tabla que contiene la información de las facturas emitidas';
+
+-- 
+-- SP 
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registro_alumno`(in P_IDalumno int(11), P_Descripcion varchar(50), P_Correo varchar (50), P_Telefono varchar (45), P_Credito char(1))
+BEGIN
+-- DECLARACION DE VARIABLE DE MENSAJE
+DECLARE  MSJ varchar(250);
+-- INICIO DEL IF
+-- VALIDACION SI LOS PARAMETROS ID, DESCRIPCION, CORREO O TELEFONO EXISTEN EN AL TABLA
+	IF(EXISTS(SELECT * FROM alumno_factura WHERE id_alumno=P_IDalumno or descripcion=P_Descripcion or correo=P_Correo or telefono=P_Telefono))
+-- SI EXISTEN NOS DAN UNA ALERTA
+		THEN SET MSJ="EL ALUMNO YA EXISTE. FAVOR REVISE SUS DATOS";
+-- DE LO CONTRARIO   
+	ELSE  
+-- SE INSERTA EN LA TABLA ALUMNO EL NUEVO ALUMNO
+		INSERT INTO alumno_factura (id_alumno, descripcion, correo, telefono, credito) VALUES (P_IDalumno, P_Descripcion, P_Correo, P_Telefono, P_Credito);
+-- MUESTRA MENSAJE DE EXITO       
+         SET MSJ="ALUMNO CREADO";
+-- FIN DEL IF
+	END IF;
+-- PRINT DEL MENSAJE
+		SELECT MSJ;
+END
+
+-- SP REGISTRO CURSO
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registro_curso`(in P_ID_curso int(11), P_Descripcion varchar(200), P_Precio decimal(10,2))
+BEGIN 
+-- DECLARACION DE VARIABLE DE MENSAJE
+	DECLARE  MSJ varchar(250);
+-- INICIO DEL IF
+-- VALIDACION SI LOS PARAMETROS ID Y DESCRIPCION EXISTEN EN AL TABLA
+	IF(EXISTS(SELECT * FROM curso WHERE id_curso=P_ID_curso  or descripcion=P_Descripcion))THEN 
+-- SI EXISTEN NOS DAN UNA ALERTA
+		SET MSJ="EL CURSO YA EXISTE. FAVOR REVISE SUS DATOS";
+-- DE LO CONTRARIO        
+	ELSE  
+-- SE INSERTA EN LA TABLA CURSO EL NUEVO CURSO
+		INSERT INTO curso (id_curso, descripcion, precio) VALUES (P_ID_curso, P_Descripcion, P_Precio);
+-- Y ASÍ MISMO EN LA BITÁCORA DE CURSO DONDE SE REGISTRA TODO TIPO DE OPERACION DE LA TABLA
+--        INSERT INTO bitacora_curso (campo, valor_nuevo, tipo_operacion) VALUES ('ID_CURSO',P_ID_curso,'NUEVO CURSO');
+--        INSERT INTO bitacora_curso (campo, valor_nuevo, tipo_operacion) VALUES ('ID_CURSO',P_Descripcion,'NUEVO CURSO');
+--      INSERT INTO bitacora_curso (campo, valor_nuevo, tipo_operacion) VALUES ('ID_CURSO',P_Precio,'NUEVO CURSO');
+-- MUESTRA MENSAJE DE EXITO        
+        SET MSJ="CURSO CREADO";
+-- FIN DEL IF
+	END IF;
+-- PRINT DEL MENSAJE
+		SELECT MSJ;
+END
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_dif_cursos_becados_no_becados`()
+BEGIN
+DROP TABLE IF EXISTS  T_BECA;
+CREATE TEMPORARY TABLE T_BECA(P_alumno int(11), P_tipo_a varchar(50), P_credito varchar(5), P_tot int(11), P_val decimal(12,4));
+insert into T_BECA
+SELECT
+	A.id_alumno
+	,'ALUMNOS CON CRÉDITO' AS TIPO_ALUMNOS
+    ,B.credito AS CREDITO_S_N
+	,COUNT(A.id_alumno) AS TOTAL
+	,SUM(A.VALOR) AS SUMA_VALORES
+	FROM bd_2.encabezado_factura AS A
+	JOIN alumno AS B ON A.id_alumno=B.id_alumno
+	WHERE B.credito='S'
+	GROUP BY B.credito;
+    
+DROP TABLE IF EXISTS  T_NO_BECA;
+CREATE TEMPORARY TABLE T_NO_BECA(P_alumno int(11), P_tipo_a varchar(50), P_credito varchar(5), P_tot int(11), P_val decimal(12,4));
+insert into T_NO_BECA
+SELECT
+	A.id_alumno
+	,'ALUMNOS SIN CRÉDITO' AS TIPO_ALUMNOS
+    ,B.credito AS CREDITO_S_N
+	,COUNT(A.id_alumno) AS TOTAL
+	,SUM(A.VALOR) AS SUMA_VALORES
+	FROM bd_2.encabezado_factura AS A
+	JOIN alumno AS B ON A.id_alumno=B.id_alumno
+	WHERE B.credito='N'
+	GROUP BY B.credito;
+    
+SELECT 
+	 C.P_tipo_a AS 'TIPO DE ALUMNOS'
+    ,'S'	AS 'TIPO DE CREDITO'
+    ,C.P_tot AS 'TOTAL DE ESTUDIANTES'
+    ,C.P_val AS 'DEUDA TOTAL DE CURSOS'
+    ,CONCAT(ROUND((C.P_val*100)/SUM(C.P_val+D.P_val),2), '%') AS 'PORCENTAJE DE DEUDA %'
+FROM T_BECA AS C, T_NO_BECA AS D
+UNION
+SELECT 
+	 D.P_tipo_a
+    ,'N'
+    ,D.P_tot
+    ,D.P_val
+    ,CONCAT(ROUND((D.P_val*100)/SUM(C.P_val+D.P_val),2), '%') 
+FROM T_BECA AS C, T_NO_BECA AS D
+UNION
+SELECT
+	  'SUB-TOTALES'
+     ,''
+     ,SUM(C.P_tot+D.P_tot)
+     ,SUM(C.P_val+D.P_val)
+     ,CONCAT(ROUND((SUM(C.P_val+D.P_val)*100)/SUM(C.P_val+D.P_val),2), '%')
+FROM T_BECA AS C, T_NO_BECA AS D;
+
+END
+
+
+-- FUNCIONES
+CREATE DEFINER=`root`@`localhost` FUNCTION `precio_iva`(precio decimal(10,2)) RETURNS decimal(12,4)
+BEGIN
+	DECLARE p_iva DECIMAL (12,4);
+	SET p_iva = precio * 0.12;
+RETURN p_iva;
+END
+
+-- VISTA
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `vw_alumnos_becados` AS
+    SELECT 
+        `alumno`.`id_alumno` AS `id_alumno`,
+        `alumno`.`descripcion` AS `descripcion`,
+        `alumno`.`correo` AS `correo`,
+        `alumno`.`telefono` AS `telefono`,
+        `alumno`.`credito` AS `credito`
+    FROM
+        `alumno`
+    WHERE
+        `alumno`.`credito` = 'S'
+        
+        
+
+
