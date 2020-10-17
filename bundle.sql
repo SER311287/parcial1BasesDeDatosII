@@ -4,7 +4,6 @@
   -- ------------------------------------------------------
   -- Server version	5.5.5-10.4.11-MariaDB
 
-  /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
   /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
   /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
   /*!40101 SET NAMES utf8 */;
@@ -498,6 +497,25 @@ CREATE table `grado_alumno` (
    CONSTRAINT `llave_grado_alumno_2` FOREIGN KEY (`id_alumno`) REFERENCES `detalle_alumno` (`id_alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
+
+-- Dumping structure for trigger la_escuelita_de_pancho.trigger1
+DROP TRIGGER IF EXISTS `trigger1`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
+DELIMITER //
+CREATE TRIGGER `trigger1` AFTER INSERT ON `detalle_alumno` FOR EACH ROW BEGIN
+DECLARE rowcount INT; 
+
+SELECT id_grado 
+INTO rowcount 
+FROM grado where anio = year(new.fecha_nacimiento); 
+
+
+
+INSERT INTO grado_alumno (id_alumno, id_grado) 
+VALUES(new.id_alumno, rowcount);
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 
 
@@ -1034,9 +1052,7 @@ USE la_escuelita_de_pancho;
   --
 
 
-  /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
   /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-  /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
   INSERT INTO `identificacion` (`id_identificacion`, `nombre_identificacion`, `estado`) VALUES
   (1, 'DPI', 'A'),

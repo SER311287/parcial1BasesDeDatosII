@@ -4,7 +4,6 @@
   -- ------------------------------------------------------
   -- Server version	5.5.5-10.4.11-MariaDB
 
-  /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
   /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
   /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
   /*!40101 SET NAMES utf8 */;
@@ -43,12 +42,24 @@
     CONSTRAINT `act_asignacion` FOREIGN KEY (`id_asignacion`) REFERENCES `asignacion` (`id_asignacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT `act_id_unidad` FOREIGN KEY (`id_unidad`) REFERENCES `unidad` (`id_unidad`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='define si es examen o tarea';
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `actividad`
+  --
 
   LOCK TABLES `actividad` WRITE;
+  /*!40000 ALTER TABLE `actividad` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `actividad` ENABLE KEYS */;
   UNLOCK TABLES;
 
+  --
+  -- Table structure for table `alumno`
+  --
 
   DROP TABLE IF EXISTS `alumno`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `alumno` (
     `id_alumno` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de alumno',
     `nombre_alumno` varchar(45) NOT NULL COMMENT 'nombre completo del alumno',
@@ -63,12 +74,24 @@
     CONSTRAINT `id_grado` FOREIGN KEY (`id_grado`) REFERENCES `grado` (`id_grado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT `id_usuario` FOREIGN KEY (`id_alumno`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `alumno`
+  --
 
   LOCK TABLES `alumno` WRITE;
+  /*!40000 ALTER TABLE `alumno` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `alumno` ENABLE KEYS */;
   UNLOCK TABLES;
 
+  --
+  -- Table structure for table `asignacion`
+  --
 
   DROP TABLE IF EXISTS `asignacion`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `asignacion` (
     `id_asignacion` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de identificacion de asignacion',
     `id_alumno` int(11) NOT NULL COMMENT 'codigo del alumno asignado',
@@ -80,12 +103,24 @@
     CONSTRAINT `asig_id_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT `asig_id_macu` FOREIGN KEY (`id_maestro_curso`) REFERENCES `maestro_curso` (`id_maestro_curso`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='asignacion de alumnos a curso y maestros';
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `asignacion`
+  --
 
   LOCK TABLES `asignacion` WRITE;
+  /*!40000 ALTER TABLE `asignacion` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `asignacion` ENABLE KEYS */;
   UNLOCK TABLES;
 
+  --
+  -- Table structure for table `aula`
+  --
 
   DROP TABLE IF EXISTS `aula`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `aula` (
     `id_aula` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de identificacion para el aula',
     `nombre_aula` varchar(150) NOT NULL COMMENT 'nombre del aula ',
@@ -97,13 +132,22 @@
     `estado` enum('A','B') DEFAULT NULL COMMENT 'Indica si esta de Alta o de Baja el aula\n',
     PRIMARY KEY (`id_aula`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='define las aulas en disposicion y el numero maximo de alumnos que puede contener';
+  /*!40101 SET character_set_client = @saved_cs_client */;
 
+  --
+  -- Dumping data for table `aula`
+  --
 
   LOCK TABLES `aula` WRITE;
   UNLOCK TABLES;
 
+  --
+  -- Table structure for table `curso`
+  --
 
   DROP TABLE IF EXISTS `curso`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `curso` (
     `id_curso` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de curso',
     `nombre_curso` varchar(150) NOT NULL COMMENT 'nombre de curso a impartir',
@@ -150,12 +194,24 @@
     `anio` int(11) NOT NULL COMMENT 'año de entrada',
     PRIMARY KEY (`id_grado`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Esta tabla contiene los grados del nivel primario';
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `grado`
+  --
 
   LOCK TABLES `grado` WRITE;
+  /*!40000 ALTER TABLE `grado` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `grado` ENABLE KEYS */;
   UNLOCK TABLES;
 
+  --
+  -- Table structure for table `horario`
+  --
 
   DROP TABLE IF EXISTS `horario`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `horario` (
     `id_horario` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo del horario del dia',
     `descripcion` varchar(155) NOT NULL COMMENT 'descripcion para el horario',
@@ -168,23 +224,48 @@
     CONSTRAINT `ho_id_macu` FOREIGN KEY (`id_maestro_curso`) REFERENCES `maestro_curso` (`id_maestro_curso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT `ho_id_periodo_dia` FOREIGN KEY (`id_periodo_dia`) REFERENCES `periodo_dia` (`id_periodo_dia`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='asignacion de los cursos al dia de periodo';
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `horario`
+  --
 
   LOCK TABLES `horario` WRITE;
+  /*!40000 ALTER TABLE `horario` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `horario` ENABLE KEYS */;
   UNLOCK TABLES;
 
+  --
+  -- Table structure for table `identificacion`
+  --
+
   DROP TABLE IF EXISTS `identificacion`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `identificacion` (
     `id_identificacion` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de identificacion ',
     `nombre_identificacion` varchar(45) NOT NULL COMMENT 'nombre de la identificacion',
     `estado` enum('A','B') NOT NULL COMMENT 'Indica si esta de Alta o de Baja el aula\n',
     PRIMARY KEY (`id_identificacion`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='nos indica el tipo de documento que puede utizar ';
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `identificacion`
+  --
 
   LOCK TABLES `identificacion` WRITE;
+  /*!40000 ALTER TABLE `identificacion` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `identificacion` ENABLE KEYS */;
   UNLOCK TABLES;
 
+  --
+  -- Table structure for table `maestro`
+  --
 
   DROP TABLE IF EXISTS `maestro`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `maestro` (
     `id_maestro` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo que identifica al maestro',
     `id_identificacion` int(11) NOT NULL COMMENT 'fk a la tabla de identificacion ',
@@ -197,12 +278,24 @@
     KEY `id_identificacion_idx` (`id_identificacion`),
     CONSTRAINT `id_identificacion` FOREIGN KEY (`id_identificacion`) REFERENCES `identificacion` (`id_identificacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='tabla con los datos importantes del maestro';
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `maestro`
+  --
 
   LOCK TABLES `maestro` WRITE;
+  /*!40000 ALTER TABLE `maestro` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `maestro` ENABLE KEYS */;
   UNLOCK TABLES;
 
+  --
+  -- Table structure for table `maestro_curso`
+  --
 
   DROP TABLE IF EXISTS `maestro_curso`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `maestro_curso` (
     `id_maestro_curso` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de asignacion',
     `id_maestro` int(11) NOT NULL COMMENT 'id maestro para hacer match',
@@ -221,12 +314,24 @@
     CONSTRAINT `macu_id_grado` FOREIGN KEY (`id_grado`) REFERENCES `grado` (`id_grado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT `macu_id_maestro` FOREIGN KEY (`id_maestro_curso`) REFERENCES `maestro` (`id_maestro`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='match entre maestro y curso ';
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `maestro_curso`
+  --
 
   LOCK TABLES `maestro_curso` WRITE;
+  /*!40000 ALTER TABLE `maestro_curso` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `maestro_curso` ENABLE KEYS */;
   UNLOCK TABLES;
 
+  --
+  -- Table structure for table `papeleria_alumno`
+  --
 
   DROP TABLE IF EXISTS `papeleria_alumno`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `papeleria_alumno` (
     `id_papeleria_alumno` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo de papeleria de alumno\n',
     `id_alumno` int(11) NOT NULL COMMENT 'codigo del alumno ',
@@ -243,12 +348,24 @@
     KEY `id_alumno_idx` (`id_alumno`),
     CONSTRAINT `id_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='contiene datos de certificaciones del alumno';
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `papeleria_alumno`
+  --
 
   LOCK TABLES `papeleria_alumno` WRITE;
+  /*!40000 ALTER TABLE `papeleria_alumno` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `papeleria_alumno` ENABLE KEYS */;
   UNLOCK TABLES;
 
+  --
+  -- Table structure for table `periodo_dia`
+  --
 
   DROP TABLE IF EXISTS `periodo_dia`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `periodo_dia` (
     `id_periodo_dia` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo para definir el periodo en el que esta',
     `nombre_periodo` varchar(45) NOT NULL COMMENT 'descripcion o titulo para el periodo',
@@ -258,12 +375,24 @@
     `estado` enum('A','B') NOT NULL,
     PRIMARY KEY (`id_periodo_dia`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='grupo por dias de horario';
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `periodo_dia`
+  --
 
   LOCK TABLES `periodo_dia` WRITE;
+  /*!40000 ALTER TABLE `periodo_dia` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `periodo_dia` ENABLE KEYS */;
   UNLOCK TABLES;
 
+  --
+  -- Table structure for table `respuesta_actividad`
+  --
 
   DROP TABLE IF EXISTS `respuesta_actividad`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `respuesta_actividad` (
     `id_respuesta_actividad` int(11) NOT NULL AUTO_INCREMENT,
     `id_actividad` int(11) NOT NULL,
@@ -280,12 +409,24 @@
     CONSTRAINT `reac_id_actividad` FOREIGN KEY (`id_actividad`) REFERENCES `actividad` (`id_actividad`) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT `reac_id_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='respuesta a la actividad creada';
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `respuesta_actividad`
+  --
 
   LOCK TABLES `respuesta_actividad` WRITE;
+  /*!40000 ALTER TABLE `respuesta_actividad` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `respuesta_actividad` ENABLE KEYS */;
   UNLOCK TABLES;
 
+  --
+  -- Table structure for table `unidad`
+  --
 
   DROP TABLE IF EXISTS `unidad`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `unidad` (
     `id_unidad` int(11) NOT NULL COMMENT 'codigo de identificacion de unidad',
     `nombre_unidad` varchar(45) DEFAULT NULL COMMENT 'nombre de identificacion para unidad',
@@ -294,12 +435,24 @@
     `estado` enum('A','I') DEFAULT NULL COMMENT 'Unidad activa o inactiva',
     PRIMARY KEY (`id_unidad`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `unidad`
+  --
 
   LOCK TABLES `unidad` WRITE;
+  /*!40000 ALTER TABLE `unidad` DISABLE KEYS */;
+  /*!40000 ALTER TABLE `unidad` ENABLE KEYS */;
   UNLOCK TABLES;
 
+  --
+  -- Table structure for table `usuario`
+  --
 
   DROP TABLE IF EXISTS `usuario`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
   CREATE TABLE `usuario` (
     `id_usuario` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo del usuario',
     `usuario` varchar(45) NOT NULL COMMENT 'nombre del usuario',
@@ -312,6 +465,11 @@
     `status` enum('A','B') NOT NULL COMMENT 'Indica si esta de Alta o de Baja del usuario',
     PRIMARY KEY (`id_usuario`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='tabla que contiene a los usuarios que manejaran la informacion ';
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `usuario`
+  --
 
   LOCK TABLES `usuario` WRITE;
   UNLOCK TABLES;
@@ -327,14 +485,6 @@ CREATE TABLE `grado_curso` (
    ) ENGINE = InnoDB;
 
 
-DROP TABLE IF EXISTS `grado`;
-CREATE TABLE IF NOT EXISTS `grado` (
-  `id_grado` int(11) NOT NULL AUTO_INCREMENT COMMENT 'codigo que identifica al grado',
-  `nombre_grado` varchar(45) NOT NULL COMMENT 'describe el nombre del grado',
-  `estado` enum('A','B') NOT NULL COMMENT 'Se evalua si esta activo o de baja los grados del colegio',
-  `anio` int(11) NOT NULL COMMENT 'año de entrada',
-  PRIMARY KEY (`id_grado`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Esta tabla contiene los grados del nivel primario';
 
 
 DROP TABLE IF EXISTS `grado_alumno`;
@@ -347,6 +497,73 @@ CREATE table `grado_alumno` (
    CONSTRAINT `llave_grado_alumno_2` FOREIGN KEY (`id_alumno`) REFERENCES `detalle_alumno` (`id_alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
+
+CREATE TABLE `alumno_factura` (
+  `id_alumno` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(50) DEFAULT NULL,
+  `correo` varchar(45) DEFAULT NULL,
+  `telefono` varchar(45) DEFAULT NULL,
+  `credito` enum('S','N') DEFAULT 'N',
+  PRIMARY KEY (`id_alumno`)
+) ENGINE=InnoDB AUTO_INCREMENT=1003 DEFAULT CHARSET=utf8mb4;
+
+-- tabla bitacora_curso
+CREATE TABLE `bitacora_curso` (
+  `id_bitacora_curso` int(11) NOT NULL AUTO_INCREMENT,
+  `campo` varchar(50) NOT NULL,
+  `valor_anterior` varchar(200) DEFAULT NULL,
+  `valor_nuevo` varchar(200) DEFAULT NULL,
+  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
+  `tipo_operacion` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_bitacora_curso`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
+
+-- tabla curso
+CREATE TABLE `curso_precio` (
+  `id_curso` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(200) CHARACTER SET utf8mb4 DEFAULT NULL,
+  `precio` decimal(10,2) DEFAULT 0.00,
+  `precio_iva` decimal(10,4) GENERATED ALWAYS AS (`precio` * 0.12) VIRTUAL,
+  PRIMARY KEY (`id_curso`)
+) ENGINE=InnoDB AUTO_INCREMENT=209 DEFAULT CHARSET=utf8;
+
+-- tabla detalle_curso
+CREATE TABLE `detalle_factura` (
+  `id_detalle_factura` int(11) NOT NULL AUTO_INCREMENT,
+  `id_encabezado_factura` int(11) NOT NULL,
+  `id_curso` int(11) NOT NULL,
+  `descripcion` varchar(250) NOT NULL,
+  `cantidad` int(11) DEFAULT 0,
+  `valor` decimal(10,2) DEFAULT 0.00,
+  `precio_iva` decimal(10,4) DEFAULT NULL,
+  `estado_documento` enum('A','B') NOT NULL DEFAULT 'A',
+  PRIMARY KEY (`id_detalle_factura`)
+) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8;
+
+-- tabla encabezado_factura
+CREATE TABLE `encabezado_factura` (
+  `id_encabezado_factura` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `fecha` datetime NOT NULL,
+  `fecha_emision` datetime NOT NULL DEFAULT current_timestamp(),
+  `factura` varchar(15) NOT NULL,
+  `serie` varchar(15) DEFAULT 'A',
+  `id_alumno` int(11) NOT NULL,
+  `cuenta` varchar(11) DEFAULT NULL,
+  `descripcion` varchar(100) DEFAULT NULL,
+  `direccion` varchar(100) DEFAULT NULL,
+  `telefono` varchar(15) DEFAULT NULL,
+  `valor` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `porcentaje_abono` int(11) DEFAULT NULL,
+  `abono` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `saldo` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `estado_pagado` enum('P','C') NOT NULL DEFAULT 'P',
+  `id_operador` int(11) DEFAULT NULL,
+  `estado_registro` enum('A','B') NOT NULL DEFAULT 'A',
+  PRIMARY KEY (`id_encabezado_factura`)
+) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8 COMMENT='Tabla que contiene la información de las facturas emitidas';
+
+
+-- Dumping structure for trigger la_escuelita_de_pancho.trigger1
 DROP TRIGGER IF EXISTS `trigger1`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
 DELIMITER //
@@ -357,9 +574,12 @@ SELECT id_grado
 INTO rowcount 
 FROM grado where anio = year(new.fecha_nacimiento); 
 
+
+
 INSERT INTO grado_alumno (id_alumno, id_grado) 
 VALUES(new.id_alumno, rowcount);
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
+
 
